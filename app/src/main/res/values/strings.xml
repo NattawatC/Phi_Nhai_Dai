@@ -1,3 +1,12 @@
 <resources>
+
+<!--    Phi Nhai Dai Front Page-->
     <string name="app_name">Phi_Nhai_Dai</string>
+    <string name="start">&gt;</string>
+    <string name="short_app_name">PND</string>
+    <string name="bottom_app_name">Phi Nhai Dai (PND)</string>
+    <string name="description">Enjoy your winter vacations with warmth
+and amazing sightseeing on the mountains.
+Enjoy the best experience with us!</string>
+
 </resources>
