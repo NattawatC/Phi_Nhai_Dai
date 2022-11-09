@@ -9,4 +9,13 @@
 and amazing sightseeing on the mountains.
 Enjoy the best experience with us!</string>
 
+    <string name="title">Title</string>
+
+<!--    Example-->
+    <string name="title_example">Mae Fah Luang</string>
+    <string name="location_example">Chiang Rai, Thailand</string>
+    <string name="description_tag">Description</string>
+    <string name="long_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim eget amet viverra eget fames rhoncus. Eget enim venenatis enim porta egestas malesuada et. Consequat mauris lacus euismod montes.</string>
+    <string name="rating_score">4.5</string>
+
 </resources>
