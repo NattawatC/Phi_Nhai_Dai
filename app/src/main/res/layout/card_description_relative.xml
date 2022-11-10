@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/cream_box"
+        android:layout_width="411dp"
+        android:layout_height="318dp"
+        android:background="@drawable/cream_box" />
+
+    <TextView
+        android:id="@+id/brown_box"
+        android:layout_width="411dp"
+        android:layout_height="340dp"
+        android:layout_below="@+id/cream_box"
+        android:layout_marginTop="-30dp"
+        android:background="@drawable/brown_box_topcorner" />
+
+    <TextView
+        android:id="@+id/title_example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/brown_box"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/title_example"
+        android:textColor="@color/secondary"
+        android:textSize="35sp" />
+
+    <ImageView
+        android:contentDescription="@string/location_icon"
+        android:id="@+id/location_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_example"
+        android:layout_marginStart="20dp"
+        app:srcCompat="@drawable/location" />
+
+    <TextView
+        android:id="@+id/location_example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_example"
+        android:layout_toEndOf="@+id/location_icon"
+        android:layout_marginStart="10dp"
+        android:text="@string/location_example"
+        android:textSize="15sp"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/secondary"/>
+
+    <ImageView
+        android:contentDescription="@string/star_icon"
+        android:id="@+id/star_rating"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:srcCompat="@drawable/star"
+        android:layout_below="@+id/location_icon"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/description_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/star_rating"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/description_tag"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/secondary"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/description_example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/description_tag"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/long_description"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@color/secondary"/>
+
+
+</RelativeLayout>
