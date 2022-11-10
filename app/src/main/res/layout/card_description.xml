@@ -9,7 +9,7 @@
         android:id="@+id/card_description_top"
         android:layout_width="411dp"
         android:layout_height="731dp"
-        android:background="@drawable/cream_box_frontpage"
+        android:background="@drawable/cream_box_bottomcorner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,21 +25,21 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!--    contentDescription needs to inspect-->
     <TextView
         android:id="@+id/description_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/title_example"
-        android:textSize="35sp"
         android:fontFamily="@font/poppins_semibold"
+        android:text="@string/title_example"
         android:textColor="@color/secondary"
+        android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/card_description_bottom" />
 
-<!--    contentDescription needs to inspect-->
     <ImageView
         android:id="@+id/place_icon"
         android:layout_width="wrap_content"
@@ -107,14 +107,14 @@
         android:id="@+id/long_description"
         android:layout_width="376dp"
         android:layout_height="81dp"
-        android:text="@string/long_description"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/poppins_regular"
+        android:text="@string/long_description"
         android:textColor="@color/secondary"
         app:layout_constraintEnd_toEndOf="@+id/description_tag"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/description_tag"
         app:layout_constraintTop_toBottomOf="@+id/description_tag" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
