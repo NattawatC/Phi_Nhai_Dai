@@ -18,4 +18,8 @@ Enjoy the best experience with us!</string>
     <string name="long_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim eget amet viverra eget fames rhoncus. Eget enim venenatis enim porta egestas malesuada et. Consequat mauris lacus euismod montes.</string>
     <string name="rating_score">4.5</string>
 
+<!--    Picture Description-->
+    <string name="location_icon">location icon</string>
+    <string name="star_icon">star icon</string>
+
 </resources>
