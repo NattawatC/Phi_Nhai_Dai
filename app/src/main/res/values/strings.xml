@@ -1,6 +1,6 @@
 <resources>
 
-<!--    Phi Nhai Dai Front Page-->
+    <!--    Phi Nhai Dai Front Page-->
     <string name="app_name">Phi_Nhai_Dai</string>
     <string name="start">&gt;</string>
     <string name="short_app_name">PND</string>
@@ -11,15 +11,32 @@ Enjoy the best experience with us!</string>
 
     <string name="title">Title</string>
 
-<!--    Example-->
+    <!--    Example-->
     <string name="title_example">Mae Fah Luang</string>
     <string name="location_example">Chiang Rai, Thailand</string>
     <string name="description_tag">Description</string>
-    <string name="long_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim eget amet viverra eget fames rhoncus. Eget enim venenatis enim porta egestas malesuada et. Consequat mauris lacus euismod montes.</string>
+    <string name="long_description">The royal residence of HRH the late Princess Mother formerly served as her base of operations to monitor the work progress at the Doi Tung Development Project.</string>
+    <string name="long_description_thai">ตั้งอยู่ด้านหน้าพระตำหนักดอยตุง บนพื้นที่ 10 ไร่ เต็มไปด้วยสวนดอกไม้เมืองหนาวที่พร้อมใจกันเบ่งบานอวดความสวยงาม เช่น กุหลาบ พิทูเนีย และบีโกเนีย</string>
     <string name="rating_score">4.5</string>
 
-<!--    Picture Description-->
+    <!--    Picture Description-->
     <string name="location_icon">location icon</string>
     <string name="star_icon">star icon</string>
+    <string name="title_activity_nav_drawer">Nav_drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_aboutus">ABOUT US</string>
+    <string name="menu_discover">DISCOVER</string>
+    <string name="menu_favorite">FAVORITE</string>
+
+    <string name="name">Navigation Drawer</string>
+    <!-- to toggle the open close button of the navigation drawer -->
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
 
 </resources>
