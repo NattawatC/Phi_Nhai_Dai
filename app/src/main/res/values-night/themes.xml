@@ -12,5 +12,22 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="android:itemTextAppearance">@style/ChangeTextColor</item>
+        <item name="android:itemBackground">@style/AppTheme</item>
+
     </style>
+
+    <!-- Customize Menu Font -->
+    <style name="ChangeTextColor" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">#E91E63</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:itemBackground">@color/dark_blue</item>
+        <item name="android:textColor">@color/dark_red</item>
+    </style>
+
 </resources>
