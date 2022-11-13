@@ -1,6 +1,6 @@
 <resources>
 
-    <!--    Phi Nhai Dai Front Page-->
+    <!-- Phi Nhai Dai Front Page -->
     <string name="app_name">Phi_Nhai_Dai</string>
     <string name="start">&gt;</string>
     <string name="short_app_name">PND</string>
@@ -10,6 +10,9 @@ and amazing sightseeing on the mountains.
 Enjoy the best experience with us!</string>
 
     <string name="title">Title</string>
+
+    <!-- Favorite Page -->
+    <string name="favorite_title">FAVORITE</string>
 
     <!--    Example-->
     <string name="title_example">Mae Fah Luang</string>
