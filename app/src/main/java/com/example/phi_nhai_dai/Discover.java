@@ -84,6 +84,18 @@ public class Discover extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.nav_aboutus){
+            Intent myIntent = new Intent(Discover.this, MainActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
+
+        else if (id == R.id.nav_discover){
+            Intent myIntent = new Intent(Discover.this, Discover.class);
+            startActivity(myIntent);
+            return true;
+        }
+
+        else if (id == R.id.nav_favourite){
             Intent myIntent = new Intent(Discover.this, Favorite.class);
             startActivity(myIntent);
             return true;
