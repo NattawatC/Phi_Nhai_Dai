@@ -16,7 +16,6 @@ import java.io.OutputStream;
 
 public class Database extends SQLiteOpenHelper {
 
-    @SuppressLint("SdCardPath")
     private static final String DB_PATH = "/data/data/com.example.phi_nhai_dai/databases/";
     private static String DB_NAME = "place";
     private SQLiteDatabase sqLiteDatabase;
