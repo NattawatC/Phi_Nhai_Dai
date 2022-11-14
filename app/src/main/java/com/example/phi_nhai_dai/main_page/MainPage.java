@@ -1,13 +1,14 @@
 package com.example.phi_nhai_dai.main_page;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.example.phi_nhai_dai.R;
 
@@ -21,7 +22,7 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_page);
+        setContentView(R.layout.recycler);
 
         Database db = new Database(this);
 
@@ -36,24 +37,30 @@ public class MainPage extends AppCompatActivity {
         db.openDB();
 
         SQLiteDatabase db1;
-        db1=openOrCreateDatabase("place", Context.MODE_PRIVATE,null);
-        Cursor c= db1.rawQuery("SELECT * FROM Places",null);
+        db1 = openOrCreateDatabase("place", Context.MODE_PRIVATE, null);
+        Cursor c = db1.rawQuery("SELECT * FROM Places", null);
         c.moveToFirst();
 
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
         ArrayList<Place> PlaceArrayList = new ArrayList<>();
+        ArrayList<String> id, name, location;
+
+        id = new ArrayList<>();
+        name = new ArrayList<>();
+        location = new ArrayList<>();
+        Adapter adapter = new Adapter(this, id, name, location);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         do {
-           PlaceArrayList.add(new Place(c.getInt(0), c.getString(1)
-           , c.getString(2)));
+            PlaceArrayList.add(new Place(c.getInt(0), c.getString(1)
+                    , c.getString(2)));
         } while (c.moveToNext());
 
-        TextView id = findViewById(R.id.textid);
-        id.setText(Integer.toString(PlaceArrayList.get(0).getId()));
-
-        TextView name = findViewById(R.id.textname);
-        name.setText(PlaceArrayList.get(0).getName());
-
-        TextView location = findViewById(R.id.textloc);
-        location.setText(PlaceArrayList.get(0).getLocation());
-
+        for (int i = 0; i < PlaceArrayList.size(); i++) {
+            id.add(Integer.toString(PlaceArrayList.get(i).getId()));
+            name.add(PlaceArrayList.get(i).getName());
+            location.add(PlaceArrayList.get(i).getLocation());
+        }
     }
 }
