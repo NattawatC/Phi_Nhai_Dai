@@ -16,9 +16,9 @@ import java.io.OutputStream;
 
 public class Database extends SQLiteOpenHelper {
 
+    @SuppressLint("SdCardPath")
     private static final String DB_PATH = "/data/data/com.example.phi_nhai_dai/databases/";
-    private static String DB_NAME = "place";
-    private SQLiteDatabase sqLiteDatabase;
+    private static final String DB_NAME = "place";
     private final Context context;
 
     public Database(@Nullable Context context) {
@@ -28,17 +28,14 @@ public class Database extends SQLiteOpenHelper {
 
     public void copyDB() throws IOException{
         try {
-            Log.i("inside copyDB....................","start");
-
+            assert context != null;
             InputStream ip =  context.getAssets().open(DB_NAME+".db");
-            Log.i("Input Stream....",ip+"");
             String op=  DB_PATH  +  DB_NAME ;
-            OutputStream output = new FileOutputStream( op);
+            OutputStream output = new FileOutputStream(op);
             byte[] buffer = new byte[1024];
             int length;
             while ((length = ip.read(buffer))>0){
                 output.write(buffer, 0, length);
-                Log.i("Content.... ",length+"");
             }
             output.flush();
             output.close();
@@ -49,12 +46,19 @@ public class Database extends SQLiteOpenHelper {
         }
     }
 
-
     public void openDB() throws SQLException {
 
         String myPath = DB_PATH + DB_NAME;
-        sqLiteDatabase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-        Log.i("open DB......",sqLiteDatabase.toString());
+        SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
+    }
 }
