@@ -6,10 +6,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.example.phi_nhai_dai.Fav.Favorite;
+import com.example.phi_nhai_dai.MainActivity;
 import com.example.phi_nhai_dai.R;
 
 import java.io.IOException;
@@ -24,6 +31,7 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_discover_page);
+//        getSupportActionBar().hide();
 
 
         Database db = new Database(this);
@@ -51,7 +59,7 @@ public class MainPage extends AppCompatActivity {
         name = new ArrayList<>();
         location = new ArrayList<>();
         img_link = new ArrayList<>();
-        Adapter adapter = new Adapter(this, id, name, location);
+        Adapter adapter = new Adapter(this, id, name, location, img_link);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -65,8 +73,41 @@ public class MainPage extends AppCompatActivity {
         for (int i = 0; i < PlaceArrayList.size(); i++) {
             id.add(Integer.toString(PlaceArrayList.get(i).getId()));
             name.add(PlaceArrayList.get(i).getName());
-            location.add(PlaceArrayList.get(i).getLocation())
+            location.add(PlaceArrayList.get(i).getLocation());
             img_link.add(PlaceArrayList.get(i).getImg_link());
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.navigation_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.nav_aboutus){
+            Intent myIntent = new Intent(MainPage.this, MainActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
+
+        else if (id == R.id.nav_discover){
+            Intent myIntent = new Intent(MainPage.this, MainPage.class);
+            startActivity(myIntent);
+            return true;
+        }
+
+        else if (id == R.id.nav_favourite){
+            Intent myIntent = new Intent(MainPage.this, Favorite.class);
+            startActivity(myIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
