@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.phi_nhai_dai.R;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.id.setText(String.valueOf(id.get(position)));
         holder.name.setText(String.valueOf(name.get(position)));
         holder.location.setText(String.valueOf(location.get(position)));
+        Glide.with(context).load(String.valueOf(img_link.get(position))).into(holder.img_link);
     }
 
     @Override
@@ -46,12 +49,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView id, name, location;
+        ImageView img_link;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             id = itemView.findViewById(R.id.cardRating);
             name = itemView.findViewById(R.id.cardTitle);
             location = itemView.findViewById(R.id.textloc);
-            img_link = itemView.findViewById();
+            img_link = itemView.findViewById(R.id.cardImage);
         }
     }
 }
