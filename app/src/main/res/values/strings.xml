@@ -11,8 +11,15 @@ Enjoy the best experience with us!</string>
 
     <string name="title">Title</string>
 
+    <string name="travel">travel</string>
+    <string name="rating_number">4.5</string>
+
     <!-- Favorite Page -->
     <string name="favorite_title">FAVORITE</string>
+
+    <!--  Discover Page  -->
+    <string name="discover_title">DISCOVER</string>
+    <string name="choose_category">Province</string>
 
     <!--    Example-->
     <string name="title_example">Mae Fah Luang</string>
