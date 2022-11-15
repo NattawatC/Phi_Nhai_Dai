@@ -14,6 +14,7 @@ import com.example.phi_nhai_dai.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class MainPage extends AppCompatActivity {
@@ -56,6 +57,8 @@ public class MainPage extends AppCompatActivity {
             PlaceArrayList.add(new Place(c.getInt(0), c.getString(1)
                     , c.getString(2)));
         } while (c.moveToNext());
+
+        Collections.shuffle(PlaceArrayList);
 
         for (int i = 0; i < PlaceArrayList.size(); i++) {
             id.add(Integer.toString(PlaceArrayList.get(i).getId()));
