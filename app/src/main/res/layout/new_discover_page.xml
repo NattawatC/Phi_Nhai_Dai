@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondary"
+    tools:context=".main_page.MainPage">
+
+    <GridLayout
+        android:id="@+id/main_grid_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:rowCount="3">
+
+        <TextView
+            android:id="@+id/discover_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/discover_title"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/dark_blue"
+            android:textSize="35sp"/>
+
+        <GridLayout
+            android:id="@+id/category_selector_box"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_columnSpan="3"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/dropdown_box"
+            android:columnCount="2"
+            android:rowCount="6">
+
+            <GridLayout
+                android:id="@+id/category_selector_box_title"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/red_box_topcorner">
+
+                <TextView
+                    android:id="@+id/choose_category_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingStart="20dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/choose_category"
+                    android:textColor="@color/secondary"
+                    android:textSize="20sp"
+                    tools:ignore="RtlSymmetry" />
+
+                <ImageButton
+                    android:id="@+id/category_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/choose_category"
+                    android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                    tools:ignore="DuplicateSpeakableTextCheck,RtlSymmetry,TouchTargetSizeCheck" />
+            </GridLayout>
+
+        </GridLayout>
+
+        <!-- Nationality Selector Dropdown -->
+        <GridLayout
+            android:id="@+id/nationality_selector_box"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_columnSpan="3"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/dropdown_box"
+            android:columnCount="2"
+            android:rowCount="6">
+
+            <GridLayout
+                android:id="@+id/nationality_selector_box_title"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/red_box_topcorner">
+
+                <TextView
+                    android:id="@+id/choose_nationality_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingStart="20dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/choose_category"
+                    android:textColor="@color/secondary"
+                    android:textSize="20sp"
+                    tools:ignore="RtlSymmetry" />
+
+                <ImageButton
+                    android:id="@+id/nationality_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_rowSpan="1"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/choose_category"
+                    android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                    tools:ignore="DuplicateSpeakableTextCheck,RtlSymmetry,TouchTargetSizeCheck" />
+
+            </GridLayout>
+
+        </GridLayout>
+
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/main_grid_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginTop="22dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutAnimation="@anim/layout_animation"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
