@@ -1,4 +1,4 @@
-package com.example.phi_nhai_dai;
+package com.example.phi_nhai_dai.Fav;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.phi_nhai_dai.Discover;
+import com.example.phi_nhai_dai.MainActivity;
+import com.example.phi_nhai_dai.R;
 
 public class Favorite extends AppCompatActivity {
 

@@ -25,6 +25,7 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler);
 
+
         Database db = new Database(this);
 
         try {
@@ -44,18 +45,19 @@ public class MainPage extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         ArrayList<Place> PlaceArrayList = new ArrayList<>();
-        ArrayList<String> id, name, location;
+        ArrayList<String> id, name, location, img_link;
 
         id = new ArrayList<>();
         name = new ArrayList<>();
         location = new ArrayList<>();
+        img_link = new ArrayList<>();
         Adapter adapter = new Adapter(this, id, name, location);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         do {
             PlaceArrayList.add(new Place(c.getInt(0), c.getString(1)
-                    , c.getString(2)));
+                    , c.getString(2), c.getString(3)));
         } while (c.moveToNext());
 
         Collections.shuffle(PlaceArrayList);
@@ -63,7 +65,8 @@ public class MainPage extends AppCompatActivity {
         for (int i = 0; i < PlaceArrayList.size(); i++) {
             id.add(Integer.toString(PlaceArrayList.get(i).getId()));
             name.add(PlaceArrayList.get(i).getName());
-            location.add(PlaceArrayList.get(i).getLocation());
+            location.add(PlaceArrayList.get(i).getLocation())
+            img_link.add(PlaceArrayList.get(i).getImg_link());
         }
     }
 }

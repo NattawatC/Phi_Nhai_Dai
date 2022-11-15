@@ -15,13 +15,14 @@ import java.util.ArrayList;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private final Context context;
-    private final ArrayList id, name, location;
+    private final ArrayList id, name, location, img_link;
 
-    public Adapter(Context context, ArrayList id, ArrayList name, ArrayList location) {
+    public Adapter(Context context, ArrayList id, ArrayList name, ArrayList location, ArrayList img_link) {
         this.context = context;
         this.id = id;
         this.name = name;
         this.location = location;
+        this.img_link = img_link;
     }
 
     @NonNull
@@ -50,6 +51,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             id = itemView.findViewById(R.id.textid);
             name = itemView.findViewById(R.id.textname);
             location = itemView.findViewById(R.id.textloc);
+            img_link = itemView.findViewById();
         }
     }
 }

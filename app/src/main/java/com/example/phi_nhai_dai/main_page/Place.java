@@ -6,12 +6,6 @@ public class Place {
     private String location;
     private String img_link;
 
-    public Place(int id, String name, String location) {
-        this.id = id;
-        this.name = name;
-        this.location = location;
-    }
-
     public Place(int id, String name, String location, String img_link) {
         this.id = id;
         this.name = name;
