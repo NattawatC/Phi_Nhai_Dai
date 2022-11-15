@@ -27,7 +27,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.main_page,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.travel_card,parent,false);
         return new ViewHolder(v);
     }
 
@@ -47,8 +47,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         TextView id, name, location;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            id = itemView.findViewById(R.id.textid);
-            name = itemView.findViewById(R.id.textname);
+            id = itemView.findViewById(R.id.cardRating);
+            name = itemView.findViewById(R.id.cardTitle);
             location = itemView.findViewById(R.id.textloc);
         }
     }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/secondary">
+
+
+    <RelativeLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/secondary">
+
+        <ImageView
+            android:id="@+id/cardImage"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/travel" />
+
+        <TextView
+            android:id="@+id/card_brownbox"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/brown_box_bottomcorner"
+            android:layout_below="@+id/cardImage"/>
+
+        <TextView
+            android:id="@+id/cardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardImage"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/title"
+            android:textColor="@color/secondary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:contentDescription="@string/star_icon"
+            android:id="@+id/cardStar"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/cardTitle"
+            android:scaleType="centerCrop"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_baseline_star_24"/>
+
+        <TextView
+            android:id="@+id/cardRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/cardStar"
+            android:layout_below="@+id/cardTitle"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/rating_number"
+            android:textColor="@color/secondary"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textloc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/cardRating"
+            android:layout_below="@+id/cardTitle"
+            android:layout_marginStart="20dp"
+            android:text="Hello"
+            android:fontFamily="@font/poppins_bold"/>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
