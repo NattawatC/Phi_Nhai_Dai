@@ -56,13 +56,13 @@
 //}
 package com.example.phi_nhai_dai;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.Toolbar;
+
+import com.example.phi_nhai_dai.Fav.Favorite;
 
 public class Discover extends AppCompatActivity {
 
