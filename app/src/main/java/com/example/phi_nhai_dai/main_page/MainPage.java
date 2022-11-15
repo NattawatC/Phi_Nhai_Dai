@@ -23,7 +23,7 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recycler);
+        setContentView(R.layout.new_discover_page);
 
         Database db = new Database(this);
 
@@ -42,7 +42,7 @@ public class MainPage extends AppCompatActivity {
         Cursor c = db1.rawQuery("SELECT * FROM Places", null);
         c.moveToFirst();
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         ArrayList<Place> PlaceArrayList = new ArrayList<>();
         ArrayList<String> id, name, location;
 
