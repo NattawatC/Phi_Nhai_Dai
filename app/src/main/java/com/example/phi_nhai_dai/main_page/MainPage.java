@@ -2,6 +2,7 @@ package com.example.phi_nhai_dai.main_page;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.CompoundButtonCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,13 +36,17 @@ import java.util.Collections;
 
 public class MainPage extends AppCompatActivity {
 
+    public static Boolean eventFilter = false;
+
     BottomNavigationView bottomNavigationView;
 
     ImageButton highlightsButton;
     ImageButton recipesButton;
     ImageButton todaySMealButton;
 
-//    New Add
+
+
+    //    New Add
     // Category Selector Box
     boolean categoryBoxState = true;
     boolean categoryLoaded = false;
@@ -63,65 +68,58 @@ public class MainPage extends AppCompatActivity {
 
     // Main Grid Layout
     GridLayout parentGridLayout;
-//    -------------
-
+    //    -------------
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_discover_page);
         getSupportActionBar().hide();
+        setContentView(R.layout.new_discover_page);
         initializeInstances();
-        Database db = new Database(this);
+        initializeBottomNavigation();
 
-        try {
-            db.getReadableDatabase();
-            db.copyDB();
-        } catch (IOException ioe) {
+        ArrayList<Place> PlaceArrayList = new ArrayList<>();
+        SQLiteDatabase db1 = OpenOrCreateDataBase();
 
-            throw new Error("Database not created");
-        }
-
-        db.openDB();
-
-        SQLiteDatabase db1;
-        db1 = openOrCreateDatabase("place", Context.MODE_PRIVATE, null);
-        Cursor c = db1.rawQuery("SELECT * FROM Places", null);
-        c.moveToFirst();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        ArrayList<Place> PlaceArrayList = new ArrayList<>();
-        ArrayList<String> id, name, location, img_link;
-
-        id = new ArrayList<>();
-        name = new ArrayList<>();
-        location = new ArrayList<>();
-        img_link = new ArrayList<>();
-        Adapter adapter = new Adapter(this, id, name, location, img_link);
+        Adapter adapter = new Adapter(this, PlaceArrayList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        do {
-            PlaceArrayList.add(new Place(c.getInt(0), c.getString(1)
-                    , c.getString(2), c.getString(3)));
-        } while (c.moveToNext());
 
-        Collections.shuffle(PlaceArrayList);
+        @SuppressLint("UseSwitchCompatOrMaterialCode")
+//        Switch s1 = findViewById(R.id.filter);
+//        Boolean s1State = s1.isChecked();
 
-        for (int i = 0; i < PlaceArrayList.size(); i++) {
-            id.add(Integer.toString(PlaceArrayList.get(i).getId()));
-            name.add(PlaceArrayList.get(i).getName());
-            location.add(PlaceArrayList.get(i).getLocation());
-            img_link.add(PlaceArrayList.get(i).getImg_link());
-        }
-//New Add
+        ArrayList filter = new ArrayList<>();
+//        if (s1State == true) {
+//            filter.add(new Filter("location", "Chiangrai"));
+//        }
+//        else
+//            filter.rem
+        eventFilter = true;
+
+//        if (eventFilter) {
+            String filterStatement = "WHERE location=\"Chiang Rai\";";
+//                    ImplementFilterStatement(filter);
+            ReadData(PlaceArrayList, db1, filterStatement);
+//        }
+//        else {
+           filter = null;
+//        }
+        //New Add
         // Category Dropdown Settings
         chooseCategoryTitle.setOnClickListener(this::toggleCategoryBox);
         categoryDropdownArrow.setOnClickListener(this::toggleCategoryBox);
 
-        // Navigation Settings
+    }
+
+    public void initializeBottomNavigation(){
         bottomNavigationView = findViewById(R.id.dock_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_discover);
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavigationView.getLayoutParams();
+        layoutParams.setBehavior(new ScrollHandler());
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int currentItem = item.getItemId();
@@ -147,8 +145,72 @@ public class MainPage extends AppCompatActivity {
                 return false;
             }
         });
-//        ----------
     }
+
+    public SQLiteDatabase OpenOrCreateDataBase() {
+        Database db = new Database(this);
+        try {
+            db.getReadableDatabase();
+            db.copyDB();
+        } catch (IOException ioe) {
+
+            throw new Error("Database not created");
+        }
+        db.openDB();
+
+        SQLiteDatabase db1;
+        db1 = openOrCreateDatabase("place", Context.MODE_PRIVATE, null);
+
+        return db1;
+    }
+
+    public void ReadData(ArrayList<Place> p, SQLiteDatabase db1, String filterStatement) {
+        Cursor c = db1.rawQuery("SELECT * FROM Places " + filterStatement, null);
+        c.moveToFirst();
+        do {
+            p.add(new Place(c.getInt(0), c.getString(1)
+                    , c.getString(2), c.getString(3), c.getFloat(4)));
+        } while (c.moveToNext());
+        Collections.shuffle(p);
+    }
+
+//    public void SetDummy(ArrayList<Place> p) {
+//        p.add(new Place(1, "MaePharoung", "Krungthape", "sfsd"));
+//        p.add(new Place(2, "Doi inthanon", "Chiang Mai", "sfsd"));
+//        p.add(new Place(3, "Doi", "Chiang Mai", "sfsd"));
+//        p.add(new Place(3, "Doi", "Chiang Mai", "s"));
+//    }
+
+    public String ImplementFilterStatement(ArrayList<Filter> filterArrayList){
+        String filterStatement = "WHERE ";
+
+        for (int i = 0; i < filterArrayList.size(); i++) {
+            if (i == filterArrayList.size()-1) {
+                filterStatement += filterArrayList.get(i).getCategory() + "= \""
+                        + filterArrayList.get(i).getValue() + "\"";
+            }
+            else {
+                filterStatement += filterArrayList.get(i).getCategory() + "= \""
+                        + filterArrayList.get(i).getValue() + "\" AND";
+            }
+        }
+        eventFilter = true;
+        return filterStatement;
+    }
+
+
+
+
+//    public void FilterData(ArrayList<Place> p, SQLiteDatabase db1, String category ,String value) {
+//        Cursor c = db1.rawQuery("SELECT * FROM Places " +
+//                "WHERE " + category + "= \"" + value + "\"" , null);
+//        c.moveToFirst();
+//        do {
+//            p.add(new Place(c.getInt(0), c.getString(1)
+//                    , c.getString(2), c.getString(3)));
+//        } while (c.moveToNext());
+//        Collections.shuffle(p);
+//    }
 
 //New Add
     private int getValueInDp(int value) {
@@ -249,6 +311,39 @@ public class MainPage extends AppCompatActivity {
         categoryBoxState = !categoryBoxState;
     }
 //    -------------
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.navigation_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.nav_aboutus){
+            Intent myIntent = new Intent(MainPage.this, MainActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
+
+        else if (id == R.id.nav_discover){
+            Intent myIntent = new Intent(MainPage.this, MainPage.class);
+            startActivity(myIntent);
+            return true;
+        }
+
+        else if (id == R.id.nav_favourite){
+            Intent myIntent = new Intent(MainPage.this, Favorite.class);
+            startActivity(myIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 //    Change checkbox color
     public static void setCheckBoxColor(AppCompatCheckBox checkBox, int uncheckedColor, int checkedColor) {
