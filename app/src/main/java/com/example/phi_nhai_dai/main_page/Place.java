@@ -5,12 +5,14 @@ public class Place {
     private String name;
     private String location;
     private String img_link;
+    private float rating;
 
-    public Place(int id, String name, String location, String img_link) {
+    public Place(int id, String name, String location, String img_link, float rating) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.img_link = img_link;
+        this.rating = rating;
     }
 
     public void setId(int id) {
@@ -29,6 +31,10 @@ public class Place {
         this.img_link = img_link;
     }
 
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -43,5 +49,9 @@ public class Place {
 
     public String getImg_link() {
         return img_link;
+    }
+
+    public float getRating() {
+        return rating;
     }
 }

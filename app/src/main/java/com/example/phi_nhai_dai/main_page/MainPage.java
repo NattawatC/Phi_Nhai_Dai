@@ -89,7 +89,7 @@ public class MainPage extends AppCompatActivity {
         eventFilter = true;
 
 //        if (eventFilter) {
-            String filterStatement = "WHERE location=\"Bangkok\";";
+            String filterStatement = "WHERE location=\"Chiang Rai\";";
 //                    ImplementFilterStatement(filter);
             ReadData(PlaceArrayList, db1, filterStatement);
 //        }
@@ -126,17 +126,17 @@ public class MainPage extends AppCompatActivity {
         c.moveToFirst();
         do {
             p.add(new Place(c.getInt(0), c.getString(1)
-                    , c.getString(2), c.getString(3)));
+                    , c.getString(2), c.getString(3), c.getFloat(4)));
         } while (c.moveToNext());
         Collections.shuffle(p);
     }
 
-    public void SetDummy(ArrayList<Place> p) {
-        p.add(new Place(1, "MaePharoung", "Krungthape", "sfsd"));
-        p.add(new Place(2, "Doi inthanon", "Chiang Mai", "sfsd"));
-        p.add(new Place(3, "Doi", "Chiang Mai", "sfsd"));
-        p.add(new Place(3, "Doi", "Chiang Mai", "s"));
-    }
+//    public void SetDummy(ArrayList<Place> p) {
+//        p.add(new Place(1, "MaePharoung", "Krungthape", "sfsd"));
+//        p.add(new Place(2, "Doi inthanon", "Chiang Mai", "sfsd"));
+//        p.add(new Place(3, "Doi", "Chiang Mai", "sfsd"));
+//        p.add(new Place(3, "Doi", "Chiang Mai", "s"));
+//    }
 
     public String ImplementFilterStatement(ArrayList<Filter> filterArrayList){
         String filterStatement = "WHERE ";
@@ -155,16 +155,16 @@ public class MainPage extends AppCompatActivity {
         return filterStatement;
     }
 
-    public void FilterData(ArrayList<Place> p, SQLiteDatabase db1, String category ,String value) {
-        Cursor c = db1.rawQuery("SELECT * FROM Places " +
-                "WHERE " + category + "= \"" + value + "\"" , null);
-        c.moveToFirst();
-        do {
-            p.add(new Place(c.getInt(0), c.getString(1)
-                    , c.getString(2), c.getString(3)));
-        } while (c.moveToNext());
-        Collections.shuffle(p);
-    }
+//    public void FilterData(ArrayList<Place> p, SQLiteDatabase db1, String category ,String value) {
+//        Cursor c = db1.rawQuery("SELECT * FROM Places " +
+//                "WHERE " + category + "= \"" + value + "\"" , null);
+//        c.moveToFirst();
+//        do {
+//            p.add(new Place(c.getInt(0), c.getString(1)
+//                    , c.getString(2), c.getString(3)));
+//        } while (c.moveToNext());
+//        Collections.shuffle(p);
+//    }
 
 //New Add
     private int getValueInDp(int value) {
