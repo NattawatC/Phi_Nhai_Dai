@@ -17,14 +17,11 @@ import java.util.ArrayList;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private final Context context;
-    private final ArrayList id, name, location, img_link;
+    private final ArrayList<Place> place;
 
-    public Adapter(Context context, ArrayList id, ArrayList name, ArrayList location, ArrayList img_link) {
+    public Adapter(Context context, ArrayList<Place> place) {
         this.context = context;
-        this.id = id;
-        this.name = name;
-        this.location = location;
-        this.img_link = img_link;
+        this.place = place;
     }
 
     @NonNull
@@ -36,15 +33,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.id.setText(String.valueOf(id.get(position)));
-        holder.name.setText(String.valueOf(name.get(position)));
-        holder.location.setText(String.valueOf(location.get(position)));
-        Glide.with(context).load(String.valueOf(img_link.get(position))).into(holder.img_link);
+        Place p = place.get(position);
+        holder.id.setText(String.valueOf(p.getId()));
+        holder.name.setText(String.valueOf(p.getName()));
+        holder.location.setText(String.valueOf(p.getLocation()));
+        Glide.with(context).load(String.valueOf(p.getImg_link())).into(holder.img_link);
     }
 
     @Override
     public int getItemCount() {
-        return id.size();
+        return place.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
