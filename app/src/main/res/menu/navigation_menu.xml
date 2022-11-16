@@ -5,16 +5,19 @@
     <item
         android:id="@+id/nav_aboutus"
         android:title="@string/menu_aboutus"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:icon="@drawable/ic_baseline_home_24"/>
 
     <item
         android:id="@+id/nav_discover"
         android:title="@string/menu_discover"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:icon="@drawable/ic_baseline_travel_explore_24"/>
 
     <item
         android:id="@+id/nav_favourite"
         android:title="@string/menu_favorite"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:icon="@drawable/ic_baseline_favorite_border_24"/>
 
 </menu>
