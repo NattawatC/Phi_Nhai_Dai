@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.example.phi_nhai_dai.Fav.Favorite;
 import com.example.phi_nhai_dai.MainActivity;
 import com.example.phi_nhai_dai.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +36,14 @@ import java.util.Collections;
 public class MainPage extends AppCompatActivity {
 
     public static Boolean eventFilter = false;
+
+    BottomNavigationView bottomNavigationView;
+
+    ImageButton highlightsButton;
+    ImageButton recipesButton;
+    ImageButton todaySMealButton;
+
+
 
     //    New Add
     // Category Selector Box
@@ -63,6 +72,7 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.new_discover_page);
         initializeInstances();
 
@@ -101,6 +111,35 @@ public class MainPage extends AppCompatActivity {
         chooseCategoryTitle.setOnClickListener(this::toggleCategoryBox);
         categoryDropdownArrow.setOnClickListener(this::toggleCategoryBox);
 //        ----------
+
+
+        bottomNavigationView = findViewById(R.id.dock_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_discover);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int currentItem = item.getItemId();
+            if (currentItem == R.id.nav_discover) {
+                return true;
+            }
+            else if (currentItem == R.id.nav_aboutus) {
+                Intent myIntent = new Intent(MainPage.this, MainActivity.class);
+                startActivity(myIntent);
+                finish();
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            else if (currentItem == R.id.nav_favourite) {
+                Intent myIntent = new Intent(MainPage.this, Favorite.class);
+                startActivity(myIntent);
+                finish();
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            else {
+                System.out.println("Not implemented");
+                return false;
+            }
+        });
     }
 
 
@@ -154,6 +193,9 @@ public class MainPage extends AppCompatActivity {
         eventFilter = true;
         return filterStatement;
     }
+
+
+
 
 //    public void FilterData(ArrayList<Place> p, SQLiteDatabase db1, String category ,String value) {
 //        Cursor c = db1.rawQuery("SELECT * FROM Places " +
