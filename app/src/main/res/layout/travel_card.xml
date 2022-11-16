@@ -66,6 +66,16 @@
             android:textColor="@color/secondary"
             android:textSize="18sp" />
 
+        <TextView
+            android:id="@+id/textloc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/cardRating"
+            android:layout_below="@+id/cardTitle"
+            android:layout_marginStart="20dp"
+            android:text="Hello"
+            android:fontFamily="@font/poppins_bold"/>
+
 
     </RelativeLayout>
 
