@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.example.phi_nhai_dai.Discover;
 import com.example.phi_nhai_dai.MainActivity;
 import com.example.phi_nhai_dai.R;
+import com.example.phi_nhai_dai.main_page.MainPage;
 
 public class Favorite extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class Favorite extends AppCompatActivity {
         }
 
         else if (id == R.id.nav_discover){
-            Intent myIntent = new Intent(Favorite.this, Discover.class);
+            Intent myIntent = new Intent(Favorite.this, MainPage.class);
             startActivity(myIntent);
             return true;
         }

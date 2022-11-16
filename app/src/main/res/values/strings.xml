@@ -49,4 +49,13 @@ Enjoy the best experience with us!</string>
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
 
+    <!-- Food Recommendation Page -->
+    <string name="search">Search</string>
+    <string name="choose_category_test">Choose Category</string>
+    <string name="main_dish">Main Dish</string>
+    <string name="appetizers">Appetizers</string>
+    <string name="snacks">Snacks</string>
+    <string name="desserts">Desserts</string>
+    <string name="beverages">Beverages</string>
+    <string name="choose_nationality">Choose Nationality</string>
 </resources>
