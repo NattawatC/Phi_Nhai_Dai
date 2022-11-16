@@ -2,6 +2,7 @@ package com.example.phi_nhai_dai.main_page;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.CompoundButtonCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -75,6 +76,7 @@ public class MainPage extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.new_discover_page);
         initializeInstances();
+        initializeBottomNavigation();
 
         ArrayList<Place> PlaceArrayList = new ArrayList<>();
         SQLiteDatabase db1 = OpenOrCreateDataBase();
@@ -112,9 +114,13 @@ public class MainPage extends AppCompatActivity {
         categoryDropdownArrow.setOnClickListener(this::toggleCategoryBox);
 //        ----------
 
+    }
 
+    public void initializeBottomNavigation(){
         bottomNavigationView = findViewById(R.id.dock_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_discover);
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavigationView.getLayoutParams();
+        layoutParams.setBehavior(new ScrollHandler());
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int currentItem = item.getItemId();
@@ -141,7 +147,6 @@ public class MainPage extends AppCompatActivity {
             }
         });
     }
-
 
     public SQLiteDatabase OpenOrCreateDataBase() {
         Database db = new Database(this);
