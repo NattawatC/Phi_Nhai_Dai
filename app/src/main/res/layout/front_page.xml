@@ -18,8 +18,8 @@
 
     <TextView
         android:id="@+id/top_background_front_page"
-        android:layout_width="411dp"
-        android:layout_height="400dp"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
         android:background="@drawable/brown_box_bottomcorner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -62,7 +62,7 @@
         android:id="@+id/bottom_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/bottom_app_name"
         android:textColor="@color/dark_blue"
