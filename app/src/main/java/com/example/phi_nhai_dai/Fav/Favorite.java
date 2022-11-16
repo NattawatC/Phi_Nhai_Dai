@@ -22,37 +22,33 @@ public class Favorite extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
+        getSupportActionBar().hide();
+
+        // Navigation Settings
+        bottomNavigationView = findViewById(R.id.dock_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_favourite);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int currentItem = item.getItemId();
+            if (currentItem == R.id.nav_favourite) {
+                return true;
+            } else if (currentItem == R.id.nav_aboutus) {
+                Intent myIntent = new Intent(Favorite.this, MainActivity.class);
+                startActivity(myIntent);
+                finish();
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (currentItem == R.id.nav_discover) {
+                Intent myIntent = new Intent(Favorite.this, MainPage.class);
+                startActivity(myIntent);
+                finish();
+                overridePendingTransition(0, 0);
+                return true;
+            } else {
+                System.out.println("Not implemented");
+                return false;
+            }
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.navigation_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if (id == R.id.nav_aboutus){
-            Intent myIntent = new Intent(Favorite.this, MainActivity.class);
-            startActivity(myIntent);
-            return true;
-        }
-
-        else if (id == R.id.nav_discover){
-            Intent myIntent = new Intent(Favorite.this, MainPage.class);
-            startActivity(myIntent);
-            return true;
-        }
-
-        else if (id == R.id.nav_favourite){
-            Intent myIntent = new Intent(Favorite.this, Favorite.class);
-            startActivity(myIntent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
