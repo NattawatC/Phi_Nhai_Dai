@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.example.phi_nhai_dai.Fav.Favorite;
 import com.example.phi_nhai_dai.MainActivity;
 import com.example.phi_nhai_dai.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +34,12 @@ import java.util.Collections;
 
 
 public class MainPage extends AppCompatActivity {
+
+    BottomNavigationView bottomNavigationView;
+
+    ImageButton highlightsButton;
+    ImageButton recipesButton;
+    ImageButton todaySMealButton;
 
 //    New Add
     // Category Selector Box
@@ -63,7 +70,7 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_discover_page);
-//        getSupportActionBar().hide();
+        getSupportActionBar().hide();
         initializeInstances();
         Database db = new Database(this);
 
@@ -111,6 +118,35 @@ public class MainPage extends AppCompatActivity {
         // Category Dropdown Settings
         chooseCategoryTitle.setOnClickListener(this::toggleCategoryBox);
         categoryDropdownArrow.setOnClickListener(this::toggleCategoryBox);
+
+        // Navigation Settings
+        bottomNavigationView = findViewById(R.id.dock_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_discover);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int currentItem = item.getItemId();
+            if (currentItem == R.id.nav_discover) {
+                return true;
+            }
+            else if (currentItem == R.id.nav_aboutus) {
+                Intent myIntent = new Intent(MainPage.this, MainActivity.class);
+                startActivity(myIntent);
+                finish();
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            else if (currentItem == R.id.nav_favourite) {
+                Intent myIntent = new Intent(MainPage.this, Favorite.class);
+                startActivity(myIntent);
+                finish();
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            else {
+                System.out.println("Not implemented");
+                return false;
+            }
+        });
 //        ----------
     }
 
@@ -213,39 +249,6 @@ public class MainPage extends AppCompatActivity {
         categoryBoxState = !categoryBoxState;
     }
 //    -------------
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.navigation_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if (id == R.id.nav_aboutus){
-            Intent myIntent = new Intent(MainPage.this, MainActivity.class);
-            startActivity(myIntent);
-            return true;
-        }
-
-        else if (id == R.id.nav_discover){
-            Intent myIntent = new Intent(MainPage.this, MainPage.class);
-            startActivity(myIntent);
-            return true;
-        }
-
-        else if (id == R.id.nav_favourite){
-            Intent myIntent = new Intent(MainPage.this, Favorite.class);
-            startActivity(myIntent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 //    Change checkbox color
     public static void setCheckBoxColor(AppCompatCheckBox checkBox, int uncheckedColor, int checkedColor) {
