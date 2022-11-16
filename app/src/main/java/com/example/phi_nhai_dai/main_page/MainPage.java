@@ -34,8 +34,7 @@ public class MainPage extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-//        ReadData(PlaceArrayList, db1);
-        SetDummy(PlaceArrayList);
+        FilterData(PlaceArrayList, db1, "location" ,"Chiangrai");
     }
 
     public SQLiteDatabase OpenOrCreateDataBase() {
@@ -67,5 +66,17 @@ public class MainPage extends AppCompatActivity {
 
     public void SetDummy(ArrayList<Place> p) {
         p.add(new Place(1, "MaePharoung", "Krungthape", "sfsd"));
+        p.add(new Place(1, "Doi inthanon", "Chiang Mai", "sfsd"));
+    }
+
+    public void FilterData(ArrayList<Place> p, SQLiteDatabase db1, String category ,String value) {
+        Cursor c = db1.rawQuery("SELECT * FROM Places " +
+                "WHERE " + category + "= \"" + value + "\"" , null);
+        c.moveToFirst();
+        do {
+            p.add(new Place(c.getInt(0), c.getString(1)
+                    , c.getString(2), c.getString(3)));
+        } while (c.moveToNext());
+        Collections.shuffle(p);
     }
 }

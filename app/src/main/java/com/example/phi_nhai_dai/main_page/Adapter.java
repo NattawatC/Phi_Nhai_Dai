@@ -1,5 +1,6 @@
 package com.example.phi_nhai_dai.main_page;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,12 +32,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         return new ViewHolder(v);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Place p = place.get(position);
         holder.id.setText(String.valueOf(p.getId()));
-        holder.name.setText(String.valueOf(p.getName()));
-        holder.location.setText(String.valueOf(p.getLocation()));
+        holder.name.setText(String.valueOf(p.getName()) + ", " + String.valueOf(p.getLocation()));
         Glide.with(context).load(String.valueOf(p.getImg_link())).into(holder.img_link);
     }
 
@@ -46,13 +47,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView id, name, location;
+        TextView id, name;
         ImageView img_link;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             id = itemView.findViewById(R.id.cardRating);
             name = itemView.findViewById(R.id.cardTitle);
-            location = itemView.findViewById(R.id.textloc);
             img_link = itemView.findViewById(R.id.cardImage);
         }
     }
