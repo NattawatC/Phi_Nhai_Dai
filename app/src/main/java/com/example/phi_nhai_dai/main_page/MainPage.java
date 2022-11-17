@@ -88,14 +88,11 @@ public class MainPage extends AppCompatActivity {
         loadActivity();
 
 
-//                    Filter north = new Filter("region", northern_text.getText().toString());
-//            Filter south = new Filter("region", southern_text.getText().toString());
-//            Filter east = new Filter("region", eastern_text.getText().toString());
-//            Filter central = new Filter("region", central_text.getText().toString());
-        Filter north = new Filter("name", "Mae Fah Luang");
-        Filter south = new Filter("name", "Elephant Valley");
-        Filter east = new Filter("name", "Phu Chi Fa");
-        Filter central = new Filter("name", "Doi Mae Salong");
+        Filter north = new Filter("region", "Northern");
+        Filter south = new Filter("region", "Southern");
+        Filter east = new Filter("region", "Central");
+        Filter central = new Filter("region", "Eastern");
+
         northern_checkbox.setOnCheckedChangeListener(new check_change(northern_checkbox, north));
         southern_checkbox.setOnCheckedChangeListener(new check_change(southern_checkbox, south));
         central_checkbox.setOnCheckedChangeListener(new check_change(central_checkbox, central));
@@ -181,7 +178,7 @@ public class MainPage extends AppCompatActivity {
         c.moveToFirst();
         do {
             p.add(new Place(c.getInt(0), c.getString(1)
-                    , c.getString(2), c.getString(3), c.getFloat(4)));
+                    , c.getString(2), c.getString(3), c.getFloat(4), c.getString(5)));
         } while (c.moveToNext());
         Collections.shuffle(p);
     }
@@ -218,7 +215,7 @@ public class MainPage extends AppCompatActivity {
         c.moveToFirst();
         do {
             p.add(new Place(c.getInt(0), c.getString(1)
-                    , c.getString(2), c.getString(3), c.getFloat(4)));
+                    , c.getString(2), c.getString(3), c.getFloat(4), c.getString(5)));
         } while (c.moveToNext());
         Collections.shuffle(p);
     }

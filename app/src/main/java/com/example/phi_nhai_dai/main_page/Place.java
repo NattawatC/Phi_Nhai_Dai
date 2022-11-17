@@ -6,13 +6,15 @@ public class Place {
     private String location;
     private String img_link;
     private float rating;
+    private String region;
 
-    public Place(int id, String name, String location, String img_link, float rating) {
+    public Place(int id, String name, String location, String img_link, float rating, String region) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.img_link = img_link;
         this.rating = rating;
+        this.region = region;
     }
 
     public void setId(int id) {
@@ -35,6 +37,10 @@ public class Place {
         this.rating = rating;
     }
 
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -53,5 +59,9 @@ public class Place {
 
     public float getRating() {
         return rating;
+    }
+
+    public String getRegion() {
+        return region;
     }
 }
