@@ -16,31 +16,47 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
+    <ImageView
+        android:contentDescription="@string/front_page_pic"
         android:id="@+id/top_background_front_page"
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:background="@drawable/brown_box_bottomcorner"
+        android:layout_width="700dp"
+        android:layout_height="500dp"
+        android:background="@drawable/front_pag_pic"
+        android:scaleType="fitCenter"
+        android:alpha="0.95"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.847"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<!--    <TextView-->
+<!--        android:id="@+id/PND_shadow"-->
+<!--        android:layout_width="130dp"-->
+<!--        android:layout_height="87dp"-->
+<!--        android:fontFamily="@font/poppins_bold"-->
+<!--        android:text="@string/short_app_name"-->
+<!--        android:textColor="@color/dark_blue"-->
+<!--        android:textSize="60sp"-->
+<!--        android:textStyle="bold"-->
+<!--        tools:layout_editor_absoluteX="150dp"-->
+<!--        tools:layout_editor_absoluteY="244dp" />-->
+
     <TextView
         android:id="@+id/PND"
-    android:layout_width="130dp"
-    android:layout_height="87dp"
-    android:fontFamily="@font/poppins_bold"
-    android:text="@string/short_app_name"
-    android:textColor="@color/secondary"
-    android:textSize="60sp"
-    android:textStyle="bold"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.498"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.25" />
+        android:layout_width="130dp"
+        android:layout_height="87dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/short_app_name"
+        android:textColor="@color/secondary"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.378" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login_button"
@@ -62,7 +78,7 @@
         android:id="@+id/bottom_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="25dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/bottom_app_name"
         android:textColor="@color/dark_blue"

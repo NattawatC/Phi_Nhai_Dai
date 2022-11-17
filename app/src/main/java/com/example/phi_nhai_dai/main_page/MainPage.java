@@ -83,7 +83,7 @@ public class MainPage extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.new_discover_page);
         initializeInstances();
-//        initializeBottomNavigation();
+        initializeBottomNavigation();
         context =  MainPage.this;
         loadActivity();
 
@@ -222,7 +222,7 @@ public class MainPage extends AppCompatActivity {
 
             if (isChecked)
             {
-                filter.add(new Filter("",));
+                filter.add(new Filter("name", "Mae Fah Luang"));
                 eventFilter = true;
                 loadActivity();
 
