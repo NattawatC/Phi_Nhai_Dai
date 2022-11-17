@@ -88,9 +88,18 @@ public class MainPage extends AppCompatActivity {
         loadActivity();
 
 
-        northern_checkbox.setOnCheckedChangeListener(new check_change());
-
-
+//                    Filter north = new Filter("region", northern_text.getText().toString());
+//            Filter south = new Filter("region", southern_text.getText().toString());
+//            Filter east = new Filter("region", eastern_text.getText().toString());
+//            Filter central = new Filter("region", central_text.getText().toString());
+        Filter north = new Filter("name", "Mae Fah Luang");
+        Filter south = new Filter("name", "Elephant Valley");
+        Filter east = new Filter("name", "Phu Chi Fa");
+        Filter central = new Filter("name", "Doi Mae Salong");
+        northern_checkbox.setOnCheckedChangeListener(new check_change(northern_checkbox, north));
+        southern_checkbox.setOnCheckedChangeListener(new check_change(southern_checkbox, south));
+        central_checkbox.setOnCheckedChangeListener(new check_change(central_checkbox, central));
+        eastern_checkbox.setOnCheckedChangeListener(new check_change(eastern_checkbox, east));
 
         //New Add
         // Category Dropdown Settings
@@ -111,8 +120,8 @@ public class MainPage extends AppCompatActivity {
             ReadData(PlaceArrayList, db1);
         }
         else {
-            String filterStatement = ImplementFilterStatement(filter);
             ArrayList<Place> p = new ArrayList<>();
+            String filterStatement = ImplementFilterStatement(filter);
             FilterData(p, db1, filterStatement);
             Adapter a = new Adapter(context, p);
             recyclerView.setAdapter(a);
@@ -194,7 +203,7 @@ public class MainPage extends AppCompatActivity {
             }
             else {
                 filterStatement += filterArrayList.get(i).getCategory() + "= \""
-                        + filterArrayList.get(i).getValue() + "\" OR";
+                        + filterArrayList.get(i).getValue() + "\" OR ";
             }
         }
         return filterStatement;
@@ -214,33 +223,33 @@ public class MainPage extends AppCompatActivity {
         Collections.shuffle(p);
     }
 
-    public class check_change  implements CompoundButton.OnCheckedChangeListener {
+    public class check_change implements CompoundButton.OnCheckedChangeListener {
 
+        private AppCompatCheckBox b;
+        private  Filter f;
+
+        public check_change(AppCompatCheckBox b, Filter f) {
+            this.b = b;
+            this.f = f;
+        }
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (b.isChecked()) {
+                    filter.add(f);
+                    eventFilter = true;
 
-            if (isChecked)
-            {
-                filter.add(new Filter("name", "Mae Fah Luang"));
-                eventFilter = true;
-                loadActivity();
-            }
-            else {
-                filter = new ArrayList<>();
-                eventFilter = false;
-                loadActivity();
-            }
+                } else {
+                    if (filter.size() > 1) {
+                        filter.remove(f);
+                        eventFilter = true;
+                    }
 
-//            else
-//            {
-//                filter.remove(Filter);
-//            }
-//            String filterStatement = ImplementFilterStatement(filter);
-//            ArrayList<Place> p = new ArrayList<>();
-//            FilterData(p, db1, filterStatement);
-//            Adapter a = new Adapter(context, p);
-//            recyclerView.setAdapter(a);
-//            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                    else if (filter.size() == 1) {
+                        filter.remove(f);
+                        eventFilter = false;
+                    }
+                }
+                loadActivity();
         }
     }
 //New Add
