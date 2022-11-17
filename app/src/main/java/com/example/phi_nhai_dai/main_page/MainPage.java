@@ -58,10 +58,10 @@ public class MainPage extends AppCompatActivity {
     ImageButton categoryDropdownArrow;
     ArrayList<TextView> categoryTextViews;
     ArrayList<AppCompatCheckBox> categoryCheckBoxes;
-    TextView main_dish_text;
-    TextView appetizer_text;
-    TextView desserts_text;
-    TextView snacks_text;
+    TextView northern_text ;
+    TextView central_text;
+    TextView eastern_text;
+    TextView southern_text;
     TextView beverages_text;
     AppCompatCheckBox main_dish_checkbox;
     AppCompatCheckBox appetizer_checkbox;
@@ -90,7 +90,6 @@ public class MainPage extends AppCompatActivity {
 
         main_dish_checkbox.setOnCheckedChangeListener(new check_change());
 
-        @SuppressLint("UseSwitchCompatOrMaterialCode")
 
 
         //New Add
@@ -265,10 +264,10 @@ public class MainPage extends AppCompatActivity {
 
         // Category Dropdown Box Elements
         categoryTextViews   = new ArrayList<>();
-        main_dish_text      = new TextView(this);
-        appetizer_text      = new TextView(this);
-        desserts_text       = new TextView(this);
-        snacks_text         = new TextView(this);
+        northern_text      = new TextView(this);
+        central_text      = new TextView(this);
+        eastern_text       = new TextView(this);
+        southern_text         = new TextView(this);
         beverages_text      = new TextView(this);
 
         categoryCheckBoxes  = new ArrayList<>();
@@ -285,32 +284,32 @@ public class MainPage extends AppCompatActivity {
     public void toggleCategoryBox(View view) {
         if (!categoryLoaded) {
             // Loads TextViews into ArrayList
-            categoryTextViews.add(main_dish_text);
-            categoryTextViews.add(appetizer_text);
-            categoryTextViews.add(desserts_text);
-            categoryTextViews.add(snacks_text);
-            categoryTextViews.add(beverages_text);
+            categoryTextViews.add(northern_text);
+            categoryTextViews.add(central_text);
+            categoryTextViews.add(eastern_text);
+            categoryTextViews.add(southern_text);
+//            categoryTextViews.add(beverages_text);
 
             // Loads Checkboxes to ArrayList
             categoryCheckBoxes.add(main_dish_checkbox);
             categoryCheckBoxes.add(appetizer_checkbox);
             categoryCheckBoxes.add(desserts_checkbox);
             categoryCheckBoxes.add(snacks_checkbox);
-            categoryCheckBoxes.add(beverages_checkbox);
+//            categoryCheckBoxes.add(beverages_checkbox);
 
             // Category UI Elements Setup
-            main_dish_text.setText(R.string.main_dish);
-            appetizer_text.setText(R.string.appetizers);
-            desserts_text.setText(R.string.desserts);
-            snacks_text.setText(R.string.snacks);
-            beverages_text.setText(R.string.beverages);
+            northern_text .setText(R.string.northern);
+            central_text.setText(R.string.central);
+            eastern_text.setText(R.string.eastern);
+            southern_text.setText(R.string.southern);
+//            beverages_text.setText(R.string.beverages);
 
             Typeface poppins_bold = ResourcesCompat.getFont(this, R.font.poppins_bold);
 
             for (TextView t : categoryTextViews) {
                 t.setTextSize(18);
                 t.setTextColor(getResources().getColor(R.color.secondary));
-                t.setPadding(getValueInDp(20), 0, getValueInDp(200), 0);
+                t.setPadding(getValueInDp(20), 0, getValueInDp(175), 0);
                 t.setTypeface(poppins_bold);
             }
 
