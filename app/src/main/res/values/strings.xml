@@ -52,10 +52,10 @@ Enjoy the best experience with us!</string>
 
     <!-- Food Recommendation Page -->
     <string name="choose_category_test">Choose Category</string>
-    <string name="chiang_rai">Chiang Rai</string>
-    <string name="chonburi">Chonburi</string>
-    <string name="snacks">Snacks</string>
-    <string name="desserts">Desserts</string>
+    <string name="northern">Northern</string>
+    <string name="central">Central</string>
+    <string name="eastern">Eastern(Isan)</string>
+    <string name="southern">Southern</string>
     <string name="beverages">Beverages</string>
     <string name="choose_nationality">Choose Nationality</string>
 
