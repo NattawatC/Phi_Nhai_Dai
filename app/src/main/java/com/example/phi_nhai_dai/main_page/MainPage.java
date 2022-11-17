@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ import java.util.Collections;
 public class MainPage extends AppCompatActivity {
 
     public static Boolean eventFilter = false;
+    public static Context context;
+
 
     BottomNavigationView bottomNavigationView;
 
@@ -65,6 +68,8 @@ public class MainPage extends AppCompatActivity {
     AppCompatCheckBox desserts_checkbox;
     AppCompatCheckBox snacks_checkbox;
     AppCompatCheckBox beverages_checkbox;
+    RecyclerView recyclerView;
+    SQLiteDatabase db1;
 
     // Main Grid Layout
     GridLayout parentGridLayout;
@@ -76,34 +81,30 @@ public class MainPage extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.new_discover_page);
         initializeInstances();
-        initializeBottomNavigation();
+//        initializeBottomNavigation();
+        context =  MainPage.this;
 
         ArrayList<Place> PlaceArrayList = new ArrayList<>();
-        SQLiteDatabase db1 = OpenOrCreateDataBase();
-
-
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        Adapter adapter = new Adapter(this, PlaceArrayList);
+        recyclerView = findViewById(R.id.recyclerView);
+        Adapter adapter = new Adapter(context, PlaceArrayList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        db1 = OpenOrCreateDataBase();
+        ReadData(PlaceArrayList, db1);
+
+        main_dish_checkbox.setOnCheckedChangeListener(new check_change());
 
 
         @SuppressLint("UseSwitchCompatOrMaterialCode")
-//        Switch s1 = findViewById(R.id.filter);
-//        Boolean s1State = s1.isChecked();
+
 
         ArrayList filter = new ArrayList<>();
-//        if (s1State == true) {
-//            filter.add(new Filter("location", "Chiangrai"));
-//        }
-//        else
-//            filter.rem
         eventFilter = true;
 
 //        if (eventFilter) {
-            String filterStatement = "WHERE location=\"Chiang Rai\";";
+//            String filterStatement = "WHERE location=\"Chiang Rai\";";
 //                    ImplementFilterStatement(filter);
-            ReadData(PlaceArrayList, db1, filterStatement);
+//            ReadData(PlaceArrayList, db1);
 //        }
 //        else {
            filter = null;
@@ -115,6 +116,9 @@ public class MainPage extends AppCompatActivity {
 //        ----------
 
     }
+
+
+
 
     public void initializeBottomNavigation(){
         bottomNavigationView = findViewById(R.id.dock_navigation);
@@ -159,14 +163,13 @@ public class MainPage extends AppCompatActivity {
         }
         db.openDB();
 
-        SQLiteDatabase db1;
         db1 = openOrCreateDatabase("place", Context.MODE_PRIVATE, null);
-
         return db1;
+
     }
 
-    public void ReadData(ArrayList<Place> p, SQLiteDatabase db1, String filterStatement) {
-        Cursor c = db1.rawQuery("SELECT * FROM Places " + filterStatement, null);
+    public void ReadData(ArrayList<Place> p, SQLiteDatabase db1) {
+        Cursor c = db1.rawQuery("SELECT * FROM Places ", null);
         c.moveToFirst();
         do {
             p.add(new Place(c.getInt(0), c.getString(1)
@@ -202,17 +205,44 @@ public class MainPage extends AppCompatActivity {
 
 
 
-//    public void FilterData(ArrayList<Place> p, SQLiteDatabase db1, String category ,String value) {
-//        Cursor c = db1.rawQuery("SELECT * FROM Places " +
-//                "WHERE " + category + "= \"" + value + "\"" , null);
-//        c.moveToFirst();
-//        do {
-//            p.add(new Place(c.getInt(0), c.getString(1)
-//                    , c.getString(2), c.getString(3)));
-//        } while (c.moveToNext());
-//        Collections.shuffle(p);
-//    }
+    public void FilterData(ArrayList<Place> p, SQLiteDatabase db1, String filterStatement) {
+        Cursor c = db1.rawQuery("SELECT * FROM Places " +
+                filterStatement, null);
+        c.moveToFirst();
+        do {
+            p.add(new Place(c.getInt(0), c.getString(1)
+                    , c.getString(2), c.getString(3), c.getFloat(4)));
+        } while (c.moveToNext());
+        Collections.shuffle(p);
+    }
 
+    public class check_change  implements CompoundButton.OnCheckedChangeListener {
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            ArrayList<Filter> filter = new ArrayList<>();
+            filter.add(new Filter("name", "Mae Fah Luang"));
+            String filterStatement = ImplementFilterStatement(filter);
+            if(main_dish_checkbox.isChecked())
+            {
+                ArrayList<Place> p = new ArrayList<>();
+                FilterData(p, db1, filterStatement);
+                Adapter a = new Adapter(context, p);
+                recyclerView.setAdapter(a);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            }
+//            if(Product2.isChecked())
+//            {
+//                amt=amt+2000;
+//            }
+//            if(Product3.isChecked())
+//            {
+//                amt=amt+3000;
+//            }
+//            amount.setText(amt+"Rs.");
+        }
+    }
 //New Add
     private int getValueInDp(int value) {
         float scale = getResources().getDisplayMetrics().density;
