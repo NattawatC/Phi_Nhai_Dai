@@ -224,7 +224,6 @@ public class MainPage extends AppCompatActivity {
                 filter.add(new Filter("name", "Mae Fah Luang"));
                 eventFilter = true;
                 loadActivity();
-
             }
             else {
                 filter = new ArrayList<>();
