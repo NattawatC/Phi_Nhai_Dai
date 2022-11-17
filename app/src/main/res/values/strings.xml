@@ -8,6 +8,7 @@
     <string name="description">Enjoy your winter vacations with warmth
 and amazing sightseeing on the mountains.
 Enjoy the best experience with us!</string>
+    <string name="front_page_pic">Front Page Pic</string>
 
     <string name="title">Title</string>
 
@@ -50,12 +51,12 @@ Enjoy the best experience with us!</string>
     <string name="nav_close">Close</string>
 
     <!-- Food Recommendation Page -->
-    <string name="search">Search</string>
     <string name="choose_category_test">Choose Category</string>
-    <string name="main_dish">Main Dish</string>
-    <string name="appetizers">Appetizers</string>
+    <string name="chiang_rai">Chiang Rai</string>
+    <string name="chonburi">Chonburi</string>
     <string name="snacks">Snacks</string>
     <string name="desserts">Desserts</string>
     <string name="beverages">Beverages</string>
     <string name="choose_nationality">Choose Nationality</string>
+
 </resources>
