@@ -36,7 +36,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Place p = place.get(position);
-        holder.id.setText(String.valueOf(p.getId()));
+        holder.rating.setText(String.valueOf(p.getRating()));
         holder.name.setText(String.valueOf(p.getName()) + ", " + String.valueOf(p.getLocation()));
         Glide.with(context).load(String.valueOf(p.getImg_link())).into(holder.img_link);
     }
@@ -47,11 +47,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView id, name;
+        TextView rating, name;
         ImageView img_link;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            id = itemView.findViewById(R.id.cardRating);
+            rating = itemView.findViewById(R.id.cardRating);
             name = itemView.findViewById(R.id.cardTitle);
             img_link = itemView.findViewById(R.id.cardImage);
         }

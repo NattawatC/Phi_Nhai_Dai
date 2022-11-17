@@ -87,7 +87,6 @@ public class MainPage extends AppCompatActivity {
         context =  MainPage.this;
         loadActivity();
 
-
         Filter north = new Filter("region", "Northern");
         Filter south = new Filter("region", "Southern");
         Filter east = new Filter("region", "Central");
@@ -183,12 +182,6 @@ public class MainPage extends AppCompatActivity {
         Collections.shuffle(p);
     }
 
-//    public void SetDummy(ArrayList<Place> p) {
-//        p.add(new Place(1, "MaePharoung", "Krungthape", "sfsd"));
-//        p.add(new Place(2, "Doi inthanon", "Chiang Mai", "sfsd"));
-//        p.add(new Place(3, "Doi", "Chiang Mai", "sfsd"));
-//        p.add(new Place(3, "Doi", "Chiang Mai", "s"));
-//    }
 
     public String ImplementFilterStatement(ArrayList<Filter> filterArrayList){
         String filterStatement = "WHERE ";
@@ -205,8 +198,6 @@ public class MainPage extends AppCompatActivity {
         }
         return filterStatement;
     }
-
-
 
 
     public void FilterData(ArrayList<Place> p, SQLiteDatabase db1, String filterStatement) {
