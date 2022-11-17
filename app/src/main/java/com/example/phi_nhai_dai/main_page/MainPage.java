@@ -62,12 +62,12 @@ public class MainPage extends AppCompatActivity {
     TextView central_text;
     TextView eastern_text;
     TextView southern_text;
-    TextView beverages_text;
-    AppCompatCheckBox main_dish_checkbox;
-    AppCompatCheckBox appetizer_checkbox;
-    AppCompatCheckBox desserts_checkbox;
-    AppCompatCheckBox snacks_checkbox;
-    AppCompatCheckBox beverages_checkbox;
+
+    AppCompatCheckBox northern_checkbox;
+    AppCompatCheckBox central_checkbox;
+    AppCompatCheckBox eastern_checkbox;
+    AppCompatCheckBox southern_checkbox;
+
     RecyclerView recyclerView;
     SQLiteDatabase db1;
 
@@ -88,7 +88,7 @@ public class MainPage extends AppCompatActivity {
         loadActivity();
 
 
-        main_dish_checkbox.setOnCheckedChangeListener(new check_change());
+        northern_checkbox.setOnCheckedChangeListener(new check_change());
 
 
 
@@ -230,7 +230,6 @@ public class MainPage extends AppCompatActivity {
                 filter = new ArrayList<>();
                 eventFilter = false;
                 loadActivity();
-
             }
 
 //            else
@@ -268,14 +267,12 @@ public class MainPage extends AppCompatActivity {
         central_text      = new TextView(this);
         eastern_text       = new TextView(this);
         southern_text         = new TextView(this);
-        beverages_text      = new TextView(this);
 
         categoryCheckBoxes  = new ArrayList<>();
-        main_dish_checkbox  = new AppCompatCheckBox(this);
-        appetizer_checkbox  = new AppCompatCheckBox(this);
-        desserts_checkbox   = new AppCompatCheckBox(this);
-        snacks_checkbox     = new AppCompatCheckBox(this);
-        beverages_checkbox  = new AppCompatCheckBox(this);
+        northern_checkbox  = new AppCompatCheckBox(this);
+        central_checkbox  = new AppCompatCheckBox(this);
+        eastern_checkbox  = new AppCompatCheckBox(this);
+        southern_checkbox     = new AppCompatCheckBox(this);
     }
     //    -------------
 
@@ -291,10 +288,10 @@ public class MainPage extends AppCompatActivity {
 //            categoryTextViews.add(beverages_text);
 
             // Loads Checkboxes to ArrayList
-            categoryCheckBoxes.add(main_dish_checkbox);
-            categoryCheckBoxes.add(appetizer_checkbox);
-            categoryCheckBoxes.add(desserts_checkbox);
-            categoryCheckBoxes.add(snacks_checkbox);
+            categoryCheckBoxes.add(northern_checkbox);
+            categoryCheckBoxes.add(central_checkbox);
+            categoryCheckBoxes.add(eastern_checkbox);
+            categoryCheckBoxes.add(southern_checkbox);
 //            categoryCheckBoxes.add(beverages_checkbox);
 
             // Category UI Elements Setup
