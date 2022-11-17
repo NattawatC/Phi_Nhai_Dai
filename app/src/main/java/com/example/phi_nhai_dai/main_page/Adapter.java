@@ -37,7 +37,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Place p = place.get(position);
         holder.rating.setText(String.valueOf(p.getRating()));
-        holder.name.setText(String.valueOf(p.getName()) + ", " + String.valueOf(p.getLocation()));
+        holder.name.setText(p.getName() + ", " + String.valueOf(p.getLocation()));
         Glide.with(context).load(String.valueOf(p.getImg_link())).into(holder.img_link);
     }
 

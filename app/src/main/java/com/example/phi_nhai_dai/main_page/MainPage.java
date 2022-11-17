@@ -33,11 +33,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 
 public class MainPage extends AppCompatActivity {
 
     public static Boolean eventFilter = false;
+    @SuppressLint("StaticFieldLeak")
     public static Context context;
 
 
@@ -80,7 +82,7 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.new_discover_page);
         initializeInstances();
         initializeBottomNavigation();
@@ -89,8 +91,8 @@ public class MainPage extends AppCompatActivity {
 
         Filter north = new Filter("region", "Northern");
         Filter south = new Filter("region", "Southern");
-        Filter east = new Filter("region", "Central");
-        Filter central = new Filter("region", "Eastern");
+        Filter east = new Filter("region", "Eastern");
+        Filter central = new Filter("region", "Central");
 
         northern_checkbox.setOnCheckedChangeListener(new check_change(northern_checkbox, north));
         southern_checkbox.setOnCheckedChangeListener(new check_change(southern_checkbox, south));
@@ -106,7 +108,7 @@ public class MainPage extends AppCompatActivity {
     }
 
     public void loadActivity() {
-        if (eventFilter == false) {
+        if (!eventFilter) {
             ArrayList<Place> PlaceArrayList = new ArrayList<>();
             recyclerView = findViewById(R.id.recyclerView);
             Adapter adapter = new Adapter(context, PlaceArrayList);
@@ -173,7 +175,7 @@ public class MainPage extends AppCompatActivity {
     }
 
     public void ReadData(ArrayList<Place> p, SQLiteDatabase db1) {
-        Cursor c = db1.rawQuery("SELECT * FROM Places ", null);
+        @SuppressLint("Recycle") Cursor c = db1.rawQuery("SELECT * FROM Places ", null);
         c.moveToFirst();
         do {
             p.add(new Place(c.getInt(0), c.getString(1)
@@ -184,24 +186,22 @@ public class MainPage extends AppCompatActivity {
 
 
     public String ImplementFilterStatement(ArrayList<Filter> filterArrayList){
-        String filterStatement = "WHERE ";
+        StringBuilder filterStatement = new StringBuilder("WHERE ");
 
         for (int i = 0; i < filterArrayList.size(); i++) {
             if (i == filterArrayList.size()-1) {
-                filterStatement += filterArrayList.get(i).getCategory() + "= \""
-                        + filterArrayList.get(i).getValue() + "\"";
+                filterStatement.append(filterArrayList.get(i).getCategory()).append("= \"").append(filterArrayList.get(i).getValue()).append("\"");
             }
             else {
-                filterStatement += filterArrayList.get(i).getCategory() + "= \""
-                        + filterArrayList.get(i).getValue() + "\" OR ";
+                filterStatement.append(filterArrayList.get(i).getCategory()).append("= \"").append(filterArrayList.get(i).getValue()).append("\" OR ");
             }
         }
-        return filterStatement;
+        return filterStatement.toString();
     }
 
 
     public void FilterData(ArrayList<Place> p, SQLiteDatabase db1, String filterStatement) {
-        Cursor c = db1.rawQuery("SELECT * FROM Places " +
+        @SuppressLint("Recycle") Cursor c = db1.rawQuery("SELECT * FROM Places " +
                 filterStatement, null);
         c.moveToFirst();
         do {
@@ -213,8 +213,8 @@ public class MainPage extends AppCompatActivity {
 
     public class check_change implements CompoundButton.OnCheckedChangeListener {
 
-        private AppCompatCheckBox b;
-        private  Filter f;
+        private final AppCompatCheckBox b;
+        private final Filter f;
 
         public check_change(AppCompatCheckBox b, Filter f) {
             this.b = b;
