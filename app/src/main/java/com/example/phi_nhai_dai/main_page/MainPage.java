@@ -62,12 +62,11 @@ public class MainPage extends AppCompatActivity {
     TextView central_text;
     TextView eastern_text;
     TextView southern_text;
-    TextView beverages_text;
+
     AppCompatCheckBox main_dish_checkbox;
     AppCompatCheckBox appetizer_checkbox;
     AppCompatCheckBox desserts_checkbox;
     AppCompatCheckBox snacks_checkbox;
-    AppCompatCheckBox beverages_checkbox;
     RecyclerView recyclerView;
     SQLiteDatabase db1;
 
@@ -268,14 +267,12 @@ public class MainPage extends AppCompatActivity {
         central_text      = new TextView(this);
         eastern_text       = new TextView(this);
         southern_text         = new TextView(this);
-        beverages_text      = new TextView(this);
 
         categoryCheckBoxes  = new ArrayList<>();
         main_dish_checkbox  = new AppCompatCheckBox(this);
         appetizer_checkbox  = new AppCompatCheckBox(this);
         desserts_checkbox   = new AppCompatCheckBox(this);
         snacks_checkbox     = new AppCompatCheckBox(this);
-        beverages_checkbox  = new AppCompatCheckBox(this);
     }
     //    -------------
 
@@ -288,21 +285,18 @@ public class MainPage extends AppCompatActivity {
             categoryTextViews.add(central_text);
             categoryTextViews.add(eastern_text);
             categoryTextViews.add(southern_text);
-//            categoryTextViews.add(beverages_text);
 
             // Loads Checkboxes to ArrayList
             categoryCheckBoxes.add(main_dish_checkbox);
             categoryCheckBoxes.add(appetizer_checkbox);
             categoryCheckBoxes.add(desserts_checkbox);
             categoryCheckBoxes.add(snacks_checkbox);
-//            categoryCheckBoxes.add(beverages_checkbox);
 
             // Category UI Elements Setup
             northern_text .setText(R.string.northern);
             central_text.setText(R.string.central);
             eastern_text.setText(R.string.eastern);
-            southern_text.setText(R.string.southern);
-//            beverages_text.setText(R.string.beverages);
+            southern_text.setText(R.string.southern);;
 
             Typeface poppins_bold = ResourcesCompat.getFont(this, R.font.poppins_bold);
 
