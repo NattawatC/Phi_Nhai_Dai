@@ -71,6 +71,8 @@ public class MainPage extends AppCompatActivity {
     RecyclerView recyclerView;
     SQLiteDatabase db1;
 
+    ArrayList<Filter> filter = new ArrayList<>();
+
     // Main Grid Layout
     GridLayout parentGridLayout;
     //    -------------
@@ -83,32 +85,14 @@ public class MainPage extends AppCompatActivity {
         initializeInstances();
 //        initializeBottomNavigation();
         context =  MainPage.this;
+        loadActivity();
 
-        ArrayList<Place> PlaceArrayList = new ArrayList<>();
-        recyclerView = findViewById(R.id.recyclerView);
-        Adapter adapter = new Adapter(context, PlaceArrayList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        db1 = OpenOrCreateDataBase();
-        ReadData(PlaceArrayList, db1);
 
         main_dish_checkbox.setOnCheckedChangeListener(new check_change());
-
 
         @SuppressLint("UseSwitchCompatOrMaterialCode")
 
 
-        ArrayList filter = new ArrayList<>();
-        eventFilter = true;
-
-//        if (eventFilter) {
-//            String filterStatement = "WHERE location=\"Chiang Rai\";";
-//                    ImplementFilterStatement(filter);
-//            ReadData(PlaceArrayList, db1);
-//        }
-//        else {
-           filter = null;
-//        }
         //New Add
         // Category Dropdown Settings
         chooseCategoryTitle.setOnClickListener(this::toggleCategoryBox);
@@ -117,8 +101,24 @@ public class MainPage extends AppCompatActivity {
 
     }
 
-
-
+    public void loadActivity() {
+        if (eventFilter == false) {
+            ArrayList<Place> PlaceArrayList = new ArrayList<>();
+            recyclerView = findViewById(R.id.recyclerView);
+            Adapter adapter = new Adapter(context, PlaceArrayList);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            db1 = OpenOrCreateDataBase();
+            ReadData(PlaceArrayList, db1);
+        }
+        else {
+            String filterStatement = ImplementFilterStatement(filter);
+            ArrayList<Place> p = new ArrayList<>();
+            FilterData(p, db1, filterStatement);
+            Adapter a = new Adapter(context, p);
+            recyclerView.setAdapter(a);
+        }
+    }
 
     public void initializeBottomNavigation(){
         bottomNavigationView = findViewById(R.id.dock_navigation);
@@ -195,10 +195,9 @@ public class MainPage extends AppCompatActivity {
             }
             else {
                 filterStatement += filterArrayList.get(i).getCategory() + "= \""
-                        + filterArrayList.get(i).getValue() + "\" AND";
+                        + filterArrayList.get(i).getValue() + "\" OR";
             }
         }
-        eventFilter = true;
         return filterStatement;
     }
 
@@ -221,26 +220,30 @@ public class MainPage extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-            ArrayList<Filter> filter = new ArrayList<>();
-            filter.add(new Filter("name", "Mae Fah Luang"));
-            String filterStatement = ImplementFilterStatement(filter);
-            if(main_dish_checkbox.isChecked())
+            if (isChecked)
             {
-                ArrayList<Place> p = new ArrayList<>();
-                FilterData(p, db1, filterStatement);
-                Adapter a = new Adapter(context, p);
-                recyclerView.setAdapter(a);
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                filter.add(new Filter("",));
+                eventFilter = true;
+                loadActivity();
+
             }
-//            if(Product2.isChecked())
+            else {
+                filter = new ArrayList<>();
+                eventFilter = false;
+                loadActivity();
+
+            }
+
+//            else
 //            {
-//                amt=amt+2000;
+//                filter.remove(Filter);
 //            }
-//            if(Product3.isChecked())
-//            {
-//                amt=amt+3000;
-//            }
-//            amount.setText(amt+"Rs.");
+//            String filterStatement = ImplementFilterStatement(filter);
+//            ArrayList<Place> p = new ArrayList<>();
+//            FilterData(p, db1, filterStatement);
+//            Adapter a = new Adapter(context, p);
+//            recyclerView.setAdapter(a);
+//            recyclerView.setLayoutManager(new LinearLayoutManager(context));
         }
     }
 //New Add
