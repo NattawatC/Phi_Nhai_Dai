@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -37,12 +38,16 @@ import java.util.Collections;
 public class MainPage extends AppCompatActivity {
 
     public static Boolean eventFilter = false;
+    public static Context context;
+
 
     BottomNavigationView bottomNavigationView;
 
     ImageButton highlightsButton;
     ImageButton recipesButton;
     ImageButton todaySMealButton;
+
+
 
     //    New Add
     // Category Selector Box
@@ -63,6 +68,10 @@ public class MainPage extends AppCompatActivity {
     AppCompatCheckBox desserts_checkbox;
     AppCompatCheckBox snacks_checkbox;
     AppCompatCheckBox beverages_checkbox;
+    RecyclerView recyclerView;
+    SQLiteDatabase db1;
+
+    ArrayList<Filter> filter = new ArrayList<>();
 
     // Main Grid Layout
     GridLayout parentGridLayout;
@@ -75,42 +84,39 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.new_discover_page);
         initializeInstances();
         initializeBottomNavigation();
-
-        ArrayList<Place> PlaceArrayList = new ArrayList<>();
-        SQLiteDatabase db1 = OpenOrCreateDataBase();
-
-
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        Adapter adapter = new Adapter(this, PlaceArrayList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        context =  MainPage.this;
+        loadActivity();
 
 
-        @SuppressLint("UseSwitchCompatOrMaterialCode")
-//        Switch s1 = findViewById(R.id.filter);
-//        Boolean s1State = s1.isChecked();
+        main_dish_checkbox.setOnCheckedChangeListener(new check_change());
 
-        ArrayList filter = new ArrayList<>();
-//        if (s1State == true) {
-//            filter.add(new Filter("location", "Chiangrai"));
-//        }
-//        else
-//            filter.rem
-        eventFilter = true;
 
-//        if (eventFilter) {
-            String filterStatement = "WHERE location=\"Chiang Rai\";";
-//                    ImplementFilterStatement(filter);
-            ReadData(PlaceArrayList, db1, filterStatement);
-//        }
-//        else {
-           filter = null;
-//        }
+
         //New Add
         // Category Dropdown Settings
         chooseCategoryTitle.setOnClickListener(this::toggleCategoryBox);
         categoryDropdownArrow.setOnClickListener(this::toggleCategoryBox);
+//        ----------
 
+    }
+
+    public void loadActivity() {
+        if (eventFilter == false) {
+            ArrayList<Place> PlaceArrayList = new ArrayList<>();
+            recyclerView = findViewById(R.id.recyclerView);
+            Adapter adapter = new Adapter(context, PlaceArrayList);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            db1 = OpenOrCreateDataBase();
+            ReadData(PlaceArrayList, db1);
+        }
+        else {
+            String filterStatement = ImplementFilterStatement(filter);
+            ArrayList<Place> p = new ArrayList<>();
+            FilterData(p, db1, filterStatement);
+            Adapter a = new Adapter(context, p);
+            recyclerView.setAdapter(a);
+        }
     }
 
     public void initializeBottomNavigation(){
@@ -156,14 +162,13 @@ public class MainPage extends AppCompatActivity {
         }
         db.openDB();
 
-        SQLiteDatabase db1;
         db1 = openOrCreateDatabase("place", Context.MODE_PRIVATE, null);
-
         return db1;
+
     }
 
-    public void ReadData(ArrayList<Place> p, SQLiteDatabase db1, String filterStatement) {
-        Cursor c = db1.rawQuery("SELECT * FROM Places " + filterStatement, null);
+    public void ReadData(ArrayList<Place> p, SQLiteDatabase db1) {
+        Cursor c = db1.rawQuery("SELECT * FROM Places ", null);
         c.moveToFirst();
         do {
             p.add(new Place(c.getInt(0), c.getString(1)
@@ -189,27 +194,57 @@ public class MainPage extends AppCompatActivity {
             }
             else {
                 filterStatement += filterArrayList.get(i).getCategory() + "= \""
-                        + filterArrayList.get(i).getValue() + "\" AND";
+                        + filterArrayList.get(i).getValue() + "\" OR";
             }
         }
-        eventFilter = true;
         return filterStatement;
     }
 
 
 
 
-//    public void FilterData(ArrayList<Place> p, SQLiteDatabase db1, String category ,String value) {
-//        Cursor c = db1.rawQuery("SELECT * FROM Places " +
-//                "WHERE " + category + "= \"" + value + "\"" , null);
-//        c.moveToFirst();
-//        do {
-//            p.add(new Place(c.getInt(0), c.getString(1)
-//                    , c.getString(2), c.getString(3)));
-//        } while (c.moveToNext());
-//        Collections.shuffle(p);
-//    }
+    public void FilterData(ArrayList<Place> p, SQLiteDatabase db1, String filterStatement) {
+        Cursor c = db1.rawQuery("SELECT * FROM Places " +
+                filterStatement, null);
+        c.moveToFirst();
+        do {
+            p.add(new Place(c.getInt(0), c.getString(1)
+                    , c.getString(2), c.getString(3), c.getFloat(4)));
+        } while (c.moveToNext());
+        Collections.shuffle(p);
+    }
 
+    public class check_change  implements CompoundButton.OnCheckedChangeListener {
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            if (isChecked)
+            {
+                filter.add(new Filter("name", "Mae Fah Luang"));
+                eventFilter = true;
+                loadActivity();
+
+            }
+            else {
+                filter = new ArrayList<>();
+                eventFilter = false;
+                loadActivity();
+
+            }
+
+//            else
+//            {
+//                filter.remove(Filter);
+//            }
+//            String filterStatement = ImplementFilterStatement(filter);
+//            ArrayList<Place> p = new ArrayList<>();
+//            FilterData(p, db1, filterStatement);
+//            Adapter a = new Adapter(context, p);
+//            recyclerView.setAdapter(a);
+//            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        }
+    }
 //New Add
     private int getValueInDp(int value) {
         float scale = getResources().getDisplayMetrics().density;
