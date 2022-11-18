@@ -29,7 +29,7 @@ import com.example.phi_nhai_dai.Fav.Favorite;
 import com.example.phi_nhai_dai.MainActivity;
 import com.example.phi_nhai_dai.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.example.phi_nhai_dai.main_page.Description;
+import com.example.phi_nhai_dai.Description;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -310,7 +310,7 @@ public class MainPage extends AppCompatActivity {
             for (TextView t : categoryTextViews) {
                 t.setTextSize(18);
                 t.setTextColor(getResources().getColor(R.color.secondary));
-                t.setPadding(getValueInDp(20), 0, getValueInDp(175), 0);
+                t.setPadding(getValueInDp(20), 0, getValueInDp(190), 0);
                 t.setTypeface(poppins_bold);
             }
 
