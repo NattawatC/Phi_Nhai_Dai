@@ -2,14 +2,13 @@ package com.example.phi_nhai_dai.main_page;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +17,7 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.phi_nhai_dai.Description;
 import com.example.phi_nhai_dai.R;
 
 import java.util.ArrayList;
@@ -48,17 +48,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         Glide.with(context).load(String.valueOf(p.getImg_link())).into(holder.img);
 
         holder.img.setOnClickListener(v -> {
-            Intent intent = new Intent(context, Description.class);
 
+            Intent intent = new Intent(context, Description.class);
+            intent.putExtra("IMAGE", p.getImg_link());
+            intent.putExtra("NAME", holder.name.getText().toString());
             context.startActivity(intent);
+
         });
     }
 
-//    public Bundle sharedElementBundle(Activity activity, View view, String sharedelemname) {
-//        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view,
-//                sharedelemname);
-//        return options.toBundle();
-//    }
 
     @Override
     public int getItemCount() {
