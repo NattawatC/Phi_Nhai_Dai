@@ -29,6 +29,7 @@ import com.example.phi_nhai_dai.Fav.Favorite;
 import com.example.phi_nhai_dai.MainActivity;
 import com.example.phi_nhai_dai.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.phi_nhai_dai.main_page.Description;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,8 +49,6 @@ public class MainPage extends AppCompatActivity {
     ImageButton highlightsButton;
     ImageButton recipesButton;
     ImageButton todaySMealButton;
-
-
 
     //    New Add
     // Category Selector Box
@@ -103,7 +102,17 @@ public class MainPage extends AppCompatActivity {
         // Category Dropdown Settings
         chooseCategoryTitle.setOnClickListener(this::toggleCategoryBox);
         categoryDropdownArrow.setOnClickListener(this::toggleCategoryBox);
+
+
+        findViewById(recyclerView.getId()).setOnClickListener(v -> {
+            Intent intent = new Intent(MainPage.this, Description.class);
+            startActivity(intent);
+        });
+
 //        ----------
+
+
+        //Vie
 
     }
 
@@ -198,7 +207,6 @@ public class MainPage extends AppCompatActivity {
         }
         return filterStatement.toString();
     }
-
 
     public void FilterData(ArrayList<Place> p, SQLiteDatabase db1, String filterStatement) {
         @SuppressLint("Recycle") Cursor c = db1.rawQuery("SELECT * FROM Places " +

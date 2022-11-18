@@ -1,14 +1,20 @@
 package com.example.phi_nhai_dai.main_page;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +35,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.travel_card,parent,false);
+
         return new ViewHolder(v);
     }
 
@@ -38,8 +45,20 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         Place p = place.get(position);
         holder.rating.setText(String.valueOf(p.getRating()));
         holder.name.setText(p.getName() + ", " + String.valueOf(p.getLocation()));
-        Glide.with(context).load(String.valueOf(p.getImg_link())).into(holder.img_link);
+        Glide.with(context).load(String.valueOf(p.getImg_link())).into(holder.img);
+
+        holder.img.setOnClickListener(v -> {
+            Intent intent = new Intent(context, Description.class);
+
+            context.startActivity(intent);
+        });
     }
+
+//    public Bundle sharedElementBundle(Activity activity, View view, String sharedelemname) {
+//        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view,
+//                sharedelemname);
+//        return options.toBundle();
+//    }
 
     @Override
     public int getItemCount() {
@@ -48,12 +67,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView rating, name;
-        ImageView img_link;
+        ImageView img;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             rating = itemView.findViewById(R.id.cardRating);
             name = itemView.findViewById(R.id.cardTitle);
-            img_link = itemView.findViewById(R.id.cardImage);
+            img = itemView.findViewById(R.id.cardImage);
         }
     }
 }

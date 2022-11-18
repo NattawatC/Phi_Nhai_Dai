@@ -7,17 +7,18 @@
     android:id="@+id/my_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".main_page.MainPage"
     tools:ignore="HardcodedText">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <ImageView
             android:id="@+id/cream_box"
             android:layout_width="411dp"
             android:layout_height="318dp"
+            android:transitionName="myImage"
             android:background="@drawable/cream_box" />
 
         <TextView
