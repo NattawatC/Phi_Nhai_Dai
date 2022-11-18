@@ -7,7 +7,6 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.widget.CompoundButtonCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +28,6 @@ import com.example.phi_nhai_dai.Fav.Favorite;
 import com.example.phi_nhai_dai.MainActivity;
 import com.example.phi_nhai_dai.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.example.phi_nhai_dai.Description;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,10 +43,6 @@ public class MainPage extends AppCompatActivity {
 
 
     BottomNavigationView bottomNavigationView;
-
-    ImageButton highlightsButton;
-    ImageButton recipesButton;
-    ImageButton todaySMealButton;
 
     //    New Add
     // Category Selector Box
@@ -103,16 +97,8 @@ public class MainPage extends AppCompatActivity {
         chooseCategoryTitle.setOnClickListener(this::toggleCategoryBox);
         categoryDropdownArrow.setOnClickListener(this::toggleCategoryBox);
 
-
-        findViewById(recyclerView.getId()).setOnClickListener(v -> {
-            Intent intent = new Intent(MainPage.this, Description.class);
-            startActivity(intent);
-        });
-
 //        ----------
 
-
-        //Vie
 
     }
 
@@ -310,7 +296,7 @@ public class MainPage extends AppCompatActivity {
             for (TextView t : categoryTextViews) {
                 t.setTextSize(18);
                 t.setTextColor(getResources().getColor(R.color.secondary));
-                t.setPadding(getValueInDp(20), 0, getValueInDp(190), 0);
+                t.setPadding(getValueInDp(20), 0, getValueInDp(175), 0);
                 t.setTypeface(poppins_bold);
             }
 

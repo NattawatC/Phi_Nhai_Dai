@@ -28,6 +28,7 @@ public class Description extends AppCompatActivity {
     TextView name;
     TextView location;
     ImageView image;
+    TextView description;
 
     SQLiteDatabase db1;
 
@@ -39,6 +40,8 @@ public class Description extends AppCompatActivity {
         db1 = openOrCreateDatabase("place", Context.MODE_PRIVATE, null);
         loadActivity();
 
+
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -47,8 +50,8 @@ public class Description extends AppCompatActivity {
         String id = getIntent().getStringExtra("ID");
 
         Place p;
-        Cursor c = db1.rawQuery("SELECT * FROM Places "
-                + "WHERE ID=" + id, null);
+        Cursor c = db1.rawQuery("SELECT * FROM Places JOIN Description ON Places.ID = Description.Places_ID\n"
+                + "WHERE Places.ID=" + id, null);
         c.moveToFirst();
         p = new Place(c.getInt(0), c.getString(1)
                 , c.getString(2), c.getString(3), c.getFloat(4), c.getString(5));
@@ -62,7 +65,8 @@ public class Description extends AppCompatActivity {
         image = findViewById(R.id.cream_box);
         Glide.with(this).load(p.getImg_link()).into(image);
 
-
+        description = findViewById(R.id.description_example);
+        description.setText(c.getString(8));
 
     }
 
