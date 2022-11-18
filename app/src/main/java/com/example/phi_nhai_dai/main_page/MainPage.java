@@ -296,7 +296,7 @@ public class MainPage extends AppCompatActivity {
             for (TextView t : categoryTextViews) {
                 t.setTextSize(18);
                 t.setTextColor(getResources().getColor(R.color.secondary));
-                t.setPadding(getValueInDp(20), 0, getValueInDp(175), 0);
+                t.setPadding(getValueInDp(20), 0, getValueInDp(220), 0);
                 t.setTypeface(poppins_bold);
             }
 
