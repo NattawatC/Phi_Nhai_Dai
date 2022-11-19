@@ -50,7 +50,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         Place p = place.get(position);
+        readCursorData(p, holder);
         holder.rating.setText(String.valueOf(p.getRating()));
         holder.name.setText(p.getName() + ", " + String.valueOf(p.getLocation()));
         Glide.with(context).load(String.valueOf(p.getImg_link())).into(holder.img);
@@ -70,7 +72,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             public void onClick(View view) {
                 if (p.getFavStatus().equals("0")) {
                     p.setFavStatus("1");
-                    favDB.insertInTO ()
+                    favDB.insertIntoDatabase(String.valueOf(p.getId()),p.getFavStatus());
+                }
+                else {
+                    p.setFavStatus("0");
+                    favDB.removeFav(String.valueOf(p.getId()));
                 }
             }
         });
