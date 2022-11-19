@@ -33,6 +33,7 @@ Enjoy the best experience with us!</string>
     <!--    Picture Description-->
     <string name="location_icon">location icon</string>
     <string name="star_icon">star icon</string>
+    <string name="fav_icon">favorite icon</string>
     <string name="title_activity_nav_drawer">Nav_drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

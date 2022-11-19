@@ -7,14 +7,19 @@ public class Place {
     private String img_link;
     private float rating;
     private String region;
+    private String FavStatus;
 
-    public Place(int id, String name, String location, String img_link, float rating, String region) {
+    public Place(int id, String name, String location, String img_link, float rating, String region, favstatus) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.img_link = img_link;
         this.rating = rating;
         this.region = region;
+    }
+
+    public void setFavStatus(String favStatus) {
+        FavStatus = favStatus;
     }
 
     public void setId(int id) {
@@ -63,5 +68,9 @@ public class Place {
 
     public String getRegion() {
         return region;
+    }
+
+    public String  getFavStatus() {
+        return FavStatus;
     }
 }

@@ -1,51 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/my_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/secondary"
-    tools:context=".MainActivity"
-    tools:ignore="HardcodedText">
+    tools:context=".Fav.Favorite">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/favorite_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Fav.Favorite">
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/favorite_title"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/dark_blue"
+        android:textSize="35sp"/>
 
-        <TextView
+    <LinearLayout
+        android:layout_below="@+id/favorite_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="100dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_fav"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="@string/favorite_title"
-            android:fontFamily="@font/poppins_bold"
-            android:textColor="@color/dark_blue"
-            android:textSize="35sp"/>
+            android:layout_height="match_parent"
+            android:layoutAnimation="@anim/layout_animation"/>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/dock_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/dark_red"
-            app:itemBackground="@color/dark_red"
-            app:itemIconTint="@drawable/selector"
-            app:itemTextColor="@drawable/selector"
-            app:labelVisibilityMode="unlabeled"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/navigation_menu" />
+    </LinearLayout>
 
-    </RelativeLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/dock_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/dark_red"
+        app:itemBackground="@color/dark_red"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/navigation_menu" />
 
-<!--    <com.google.android.material.navigation.NavigationView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_gravity="start"-->
-<!--        app:menu="@menu/navigation_menu" />-->
-
-</androidx.drawerlayout.widget.DrawerLayout>
+</RelativeLayout>
