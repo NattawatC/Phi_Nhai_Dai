@@ -1,9 +1,10 @@
 package com.example.phi_nhai_dai.main_page;
 
+import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
@@ -12,21 +13,23 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.phi_nhai_dai.Description.Description;
-import com.example.phi_nhai_dai.Fav.FavDB;
 import com.example.phi_nhai_dai.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
     private final Context context;
     private final ArrayList<Place> place;
-    private FavDB favDB;
+    private  Database db;
 
     public Adapter(Context context, ArrayList<Place> place) {
         this.context = context;
@@ -36,12 +39,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        favDB = new FavDB(context);
-        SharedPreferences prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
-        boolean firstStart = prefs.getBoolean("firstStart", true);
-        if (firstStart) {
-            createTableOnFirstStart();
-        }
         View v = LayoutInflater.from(context).inflate(R.layout.travel_card,parent,false);
 
         return new ViewHolder(v);
@@ -51,8 +48,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        db = Database.getInstance(context);
         Place p = place.get(position);
-        readCursorData(p, holder);
+        readCursorData(p);
         holder.rating.setText(String.valueOf(p.getRating()));
         holder.name.setText(p.getName() + ", " + String.valueOf(p.getLocation()));
         Glide.with(context).load(String.valueOf(p.getImg_link())).into(holder.img);
@@ -67,18 +65,24 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         });
 
-        holder.favbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (p.getFavStatus().equals("0")) {
+        holder.favbtn.setOnClickListener(v ->  {
+                if (Objects.equals(p.getFavStatus(), "0")) {
+                    Boolean Update = true;
                     p.setFavStatus("1");
-                    favDB.insertIntoDatabase(String.valueOf(p.getId()),p.getFavStatus());
+                    db.AddFav(String.valueOf(p.getId()));
+                    Toast.makeText(context,
+                                    "Add to favourite",
+                                    Toast.LENGTH_LONG)
+                            .show();
                 }
                 else {
                     p.setFavStatus("0");
-                    favDB.removeFav(String.valueOf(p.getId()));
+                    db.removeFav(String.valueOf(p.getId()));
+                    Toast.makeText(context,
+                                    "Remove from favourite",
+                                    Toast.LENGTH_LONG)
+                            .show();
                 }
-            }
         });
     }
 
@@ -101,22 +105,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }
     }
 
-    private void createTableOnFirstStart() {
-        favDB.insertEmpty();
+//    private void createTableOnFirstStart() {
+//        favDB.insertEmpty();
+//
+//        SharedPreferences prefs = context.getSharedPreferences("prefs",Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = prefs.edit();
+//        editor.putBoolean("firstStart", false);
+//        editor.apply();
+//    }
 
-        SharedPreferences prefs = context.getSharedPreferences("prefs",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("firstStart", false);
-        editor.apply();
-    }
-
-    private void readCursorData(Place p, ViewHolder viewHolder) {
-        Cursor c = favDB.ReadData();
-
-        try (SQLiteDatabase db = favDB.getReadableDatabase()) {
-            c.moveToFirst();
+    private void readCursorData(Place p) {
+        SQLiteDatabase db1 = db.getReadableDatabase();
+        Cursor c = db1.rawQuery("SELECT fStatus FROM Places",null);
+        c.moveToFirst();
             while (c.moveToNext()) {
-                @SuppressLint("Range") String item_fav_status = c.getString(c.getColumnIndex(FavDB.FAVOURITE_STATUS));
+                @SuppressLint("Range") String item_fav_status = c.getString(0);
                 p.setFavStatus(item_fav_status);
 
                 //check fav status
@@ -126,8 +129,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 //                viewHolder.favBtn.setBackgroundResource(R.drawable.ic_favorite_shadow_24dp);
 //            }
             }
-        } finally {
-            if (c != null && c.isClosed()) c.close();
         }
-    }
+
 }

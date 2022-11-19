@@ -1,11 +1,13 @@
 package com.example.phi_nhai_dai.Fav;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,10 +15,12 @@ import android.view.MenuItem;
 import com.example.phi_nhai_dai.Discover;
 import com.example.phi_nhai_dai.MainActivity;
 import com.example.phi_nhai_dai.R;
+import com.example.phi_nhai_dai.main_page.Database;
 import com.example.phi_nhai_dai.main_page.MainPage;
 import com.example.phi_nhai_dai.main_page.Place;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Favorite extends AppCompatActivity {
@@ -24,6 +28,7 @@ public class Favorite extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     RecyclerView recyclerview;
     Context context;
+    SQLiteDatabase db1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +37,8 @@ public class Favorite extends AppCompatActivity {
         setContentView(R.layout.activity_favorite);
         getSupportActionBar().hide();
         context = this;
-        recyclerview = findViewById(R.id.recyclerView);
+        recyclerview = findViewById(R.id.recyclerView_fav);
+        OpenOrCreateDataBase();
 
         // Navigation Settings
         bottomNavigationView = findViewById(R.id.dock_navigation);
@@ -60,8 +66,23 @@ public class Favorite extends AppCompatActivity {
             }
         });
 
+        ArrayList<Place> p = new ArrayList<>();
+        Cursor c = db1.rawQuery("SELECT * FROM Places WHERE fStatus=1" , null);
 
+        c.moveToFirst();
+        do {
+            p.add(new Place(c.getInt(0), c.getString(1)
+                    , c.getString(2), c.getString(3), c.getFloat(4), c.getString(5)));
+        } while (c.moveToNext());
+        FavAdapter adapter = new FavAdapter(context, p);
+        recyclerview.setAdapter(adapter);
+        recyclerview.setLayoutManager(new LinearLayoutManager(context));
 
+    }
+
+    public void OpenOrCreateDataBase() {
+        Database db = Database.getInstance(context);
+        db1 = db.getReadableDatabase();
     }
 
 }

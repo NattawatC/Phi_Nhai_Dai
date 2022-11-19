@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
     private final Context context;
     private final ArrayList<Place> place;
-    private FavDB favdb;
 
     public FavAdapter(Context context, ArrayList<Place> place) {
         this.context = context;
@@ -36,21 +35,14 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        favdb = new FavDB(context);
-        SharedPreferences prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
-        boolean firstStart = prefs.getBoolean("firstStart", true);
-        if (firstStart) {
-           createTableOnFirstStart();
-        }
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.travel_card,parent,false);
 
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.travel_card,parent,false);
         return new ViewHolder(v);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         Place p = place.get(position);
         holder.rating.setText(String.valueOf(p.getRating()));
         holder.name.setText(p.getName() + ", " + String.valueOf(p.getLocation()));
@@ -81,15 +73,5 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
 
         }
     }
-
-    private void createTableOnFirstStart() {
-        favdb.insertEmpty();
-
-        SharedPreferences prefs = context.getSharedPreferences("prefs",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("firstStart", false);
-        editor.apply();
-    }
-
 
 }
