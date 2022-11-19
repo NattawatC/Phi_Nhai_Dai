@@ -40,8 +40,6 @@ public class Description extends AppCompatActivity {
         db1 = openOrCreateDatabase("place", Context.MODE_PRIVATE, null);
         loadActivity();
 
-
-
     }
 
     @SuppressLint("SetTextI18n")
