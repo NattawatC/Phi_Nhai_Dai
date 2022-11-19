@@ -50,7 +50,6 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        readCursorData();
 
         Place p = place.get(position);
         holder.rating.setText(String.valueOf(p.getRating()));

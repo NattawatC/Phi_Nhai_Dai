@@ -86,8 +86,7 @@ public class FavDB extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(PLACE_ID, place_id);
         cv.put(FAVOURITE_STATUS, status);
-        db.
-
+        db.insert(TABLE_NAME, null,cv);
 
     }
 }

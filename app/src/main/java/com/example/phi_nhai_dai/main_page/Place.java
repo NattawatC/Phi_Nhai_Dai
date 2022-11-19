@@ -9,7 +9,7 @@ public class Place {
     private String region;
     private String FavStatus;
 
-    public Place(int id, String name, String location, String img_link, float rating, String region, favstatus) {
+    public Place(int id, String name, String location, String img_link, float rating, String region) {
         this.id = id;
         this.name = name;
         this.location = location;
