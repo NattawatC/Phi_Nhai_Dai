@@ -14,6 +14,7 @@ public class FavDB extends SQLiteOpenHelper {
     @SuppressLint("StaticFieldLeak")
     private static Context context;
     private static  int DB_VERSION = 1;
+    private static final String DB_PATH = "/data/data/com.example.phi_nhai_dai/databases/";
     private static final String DATABASE_NAME = "place";
     private static final String TABLE_NAME = "favourite";
     private static final String PLACE_ID = "Place_ID";
@@ -21,7 +22,7 @@ public class FavDB extends SQLiteOpenHelper {
 
 
     private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
-            + PLACE_ID + "INTEGER" +  FAVOURITE_STATUS + "INTEGER)";
+            + PLACE_ID + " INT," +  FAVOURITE_STATUS + " INT)";
 
 
 
@@ -33,6 +34,8 @@ public class FavDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        String myPath = DB_PATH + DATABASE_NAME;
+        sqLiteDatabase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
         sqLiteDatabase.execSQL(CREATE_TABLE);
     }
 
@@ -48,35 +51,33 @@ public class FavDB extends SQLiteOpenHelper {
         for(int x = 1; x <= 40; x++ ) {
             cv.put(PLACE_ID, x);
             cv.put(FAVOURITE_STATUS, 0);
-
             db.insert(TABLE_NAME, null, cv);
         }
     }
 
     public Cursor ReadData() {
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM " + TABLE_NAME + " JOIN Places ON " + TABLE_NAME + "." + PLACE_ID
-                + "= Places.ID";
-
+//        String sql = "SELECT * FROM " + TABLE_NAME + " JOIN Places ON favourite.Place_ID = Places.ID";
+        String sql = "SELECT * FROM Places" ;
         return db.rawQuery(sql,null,null);
     }
 
     public void removeFav(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "UPDATE " + TABLE_NAME + "SET " + FAVOURITE_STATUS + "=0" + "WHERE "
+        String sql = "UPDATE " + TABLE_NAME + " SET " + FAVOURITE_STATUS + "= 0" + " WHERE "
                 + PLACE_ID + "=" + id;
-        db.execSQL(sql);
         Toast.makeText(context,
                         "Remove from favourite",
                         Toast.LENGTH_LONG)
                 .show();
+        db.execSQL(sql);
     }
 
 
     public Cursor selectAllFav() {
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM " + TABLE_NAME + " JOIN Places ON " + TABLE_NAME + "." + PLACE_ID
-                + "= Places.ID " + "WHERE " + FAVOURITE_STATUS + "=1";
+        String sql = "SELECT * FROM Places" + " JOIN favourite ON " + "Places.ID = favourite.Places_ID"
+                 + " WHERE " + FAVOURITE_STATUS + "=1";
 
         return db.rawQuery(sql, null, null);
     }
@@ -84,7 +85,7 @@ public class FavDB extends SQLiteOpenHelper {
     public void insertIntoDatabase(String place_id, String status) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(PLACE_ID, place_id);
+        cv.put(PLACE_ID, Integer.valueOf(place_id));
         cv.put(FAVOURITE_STATUS, status);
         db.insert(TABLE_NAME, null,cv);
 

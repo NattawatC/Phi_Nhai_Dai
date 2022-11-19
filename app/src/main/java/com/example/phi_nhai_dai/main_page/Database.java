@@ -1,11 +1,14 @@
 package com.example.phi_nhai_dai.main_page;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -16,10 +19,21 @@ import java.io.OutputStream;
 
 public class Database extends SQLiteOpenHelper {
 
+    private static Database mInstance;
     @SuppressLint("SdCardPath")
     private static final String DB_PATH = "/data/data/com.example.phi_nhai_dai/databases/";
     private static final String DB_NAME = "place";
     private final Context context;
+
+    public static Database getInstance(Context ctx) {
+
+        if (mInstance == null) {
+            mInstance = new Database(ctx.getApplicationContext()) {
+            };
+        }
+        return mInstance;
+    }
+
 
     public Database(@Nullable Context context) {
         super(context, DB_NAME, null, 1);
@@ -61,4 +75,25 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
+
+    public void AddFav(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "UPDATE Places SET fStatus=1 WHERE ID = " +id;
+        db.execSQL(sql);
+
+    }
+
+    public void removeFav(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "UPDATE Places SET fStatus=0 WHERE ID = " +id;
+        db.execSQL(sql);
+    }
+
+    public Cursor ReadData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM Places" ;
+        return db.rawQuery(sql,null,null);
+    }
+
+
 }

@@ -66,6 +66,8 @@ public class Description extends AppCompatActivity {
         description = findViewById(R.id.description_example);
         description.setText(c.getString(8));
 
+        db1.close();
+
     }
 
 

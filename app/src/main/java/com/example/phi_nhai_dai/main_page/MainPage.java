@@ -65,6 +65,8 @@ public class MainPage extends AppCompatActivity {
 
     RecyclerView recyclerView;
     SQLiteDatabase db1;
+    Boolean UpdatefStatus;
+    String idUpdate;
 
     ArrayList<Filter> filter = new ArrayList<>();
 
@@ -81,6 +83,7 @@ public class MainPage extends AppCompatActivity {
         initializeBottomNavigation();
         context =  MainPage.this;
         loadActivity();
+
 
         Filter north = new Filter("region", "Northern");
         Filter south = new Filter("region", "Southern");
@@ -204,6 +207,7 @@ public class MainPage extends AppCompatActivity {
         } while (c.moveToNext());
         Collections.shuffle(p);
     }
+
 
     public class check_change implements CompoundButton.OnCheckedChangeListener {
 
