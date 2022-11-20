@@ -193,6 +193,7 @@ public class MainPage extends AppCompatActivity {
                     , c.getString(2), c.getString(3), c.getFloat(4), c.getString(5)));
         } while (c.moveToNext());
         Collections.shuffle(p);
+        c.close();
     }
 
 
@@ -219,6 +220,7 @@ public class MainPage extends AppCompatActivity {
                     , c.getString(2), c.getString(3), c.getFloat(4), c.getString(5)));
         } while (c.moveToNext());
         Collections.shuffle(p);
+        c.close();
     }
 
 

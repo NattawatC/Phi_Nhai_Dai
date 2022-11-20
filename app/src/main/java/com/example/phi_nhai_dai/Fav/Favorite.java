@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.example.phi_nhai_dai.Discover;
 import com.example.phi_nhai_dai.MainActivity;
 import com.example.phi_nhai_dai.R;
+import com.example.phi_nhai_dai.main_page.Adapter;
 import com.example.phi_nhai_dai.main_page.Database;
 import com.example.phi_nhai_dai.main_page.MainPage;
 import com.example.phi_nhai_dai.main_page.Place;
@@ -74,7 +75,7 @@ public class Favorite extends AppCompatActivity {
                 p.add(new Place(c.getInt(0), c.getString(1)
                         , c.getString(2), c.getString(3), c.getFloat(4), c.getString(5)));
             } while (c.moveToNext());
-            FavAdapter adapter = new FavAdapter(context, p);
+            Adapter adapter = new Adapter(context, p);
             recyclerview.setAdapter(adapter);
             recyclerview.setLayoutManager(new LinearLayoutManager(context));
         }
