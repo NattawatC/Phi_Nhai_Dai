@@ -84,32 +84,25 @@
     <TextView
         android:id="@+id/description_tag"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/star_rating"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="7dp"
         android:text="@string/description_tag"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/secondary"
         android:textSize="25sp"/>
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/description_tag">
 
     <TextView
         android:id="@+id/description_example"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/description_tag"
-        android:justificationMode="inter_word"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:fontFamily="@font/poppins_regular"
         android:text="@string/long_description"
         android:textColor="@color/secondary"
         android:textSize="17sp" />
-
-    </ScrollView>
 
 </RelativeLayout>
