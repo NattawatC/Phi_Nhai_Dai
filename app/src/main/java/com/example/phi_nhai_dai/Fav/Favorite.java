@@ -9,10 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import com.example.phi_nhai_dai.Discover;
 import com.example.phi_nhai_dai.MainActivity;
 import com.example.phi_nhai_dai.R;
 import com.example.phi_nhai_dai.main_page.Adapter;
@@ -21,7 +18,6 @@ import com.example.phi_nhai_dai.main_page.MainPage;
 import com.example.phi_nhai_dai.main_page.Place;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Favorite extends AppCompatActivity {
