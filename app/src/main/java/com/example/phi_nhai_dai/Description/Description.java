@@ -64,7 +64,7 @@ public class Description extends AppCompatActivity {
         Glide.with(this).load(p.getImg_link()).into(image);
 
         description = findViewById(R.id.description_example);
-        description.setText(c.getString(8));
+        description.setText(c.getString(9));
 
         db1.close();
 

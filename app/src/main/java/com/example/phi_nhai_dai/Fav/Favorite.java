@@ -69,15 +69,15 @@ public class Favorite extends AppCompatActivity {
         ArrayList<Place> p = new ArrayList<>();
         Cursor c = db1.rawQuery("SELECT * FROM Places WHERE fStatus=1" , null);
 
-        c.moveToFirst();
-        do {
-            p.add(new Place(c.getInt(0), c.getString(1)
-                    , c.getString(2), c.getString(3), c.getFloat(4), c.getString(5)));
-        } while (c.moveToNext());
-        FavAdapter adapter = new FavAdapter(context, p);
-        recyclerview.setAdapter(adapter);
-        recyclerview.setLayoutManager(new LinearLayoutManager(context));
-
+        if (c.moveToFirst()) {
+            do {
+                p.add(new Place(c.getInt(0), c.getString(1)
+                        , c.getString(2), c.getString(3), c.getFloat(4), c.getString(5)));
+            } while (c.moveToNext());
+            FavAdapter adapter = new FavAdapter(context, p);
+            recyclerview.setAdapter(adapter);
+            recyclerview.setLayoutManager(new LinearLayoutManager(context));
+        }
     }
 
     public void OpenOrCreateDataBase() {
