@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -82,6 +83,18 @@ public class MainPage extends AppCompatActivity {
         initializeInstances();
         initializeBottomNavigation();
         context =  MainPage.this;
+
+        SharedPreferences prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        boolean firstStart = prefs.getBoolean("firstStart", true);
+        Database db = new Database(context);
+        if (firstStart) {
+           OpenOrCreateDataBase();
+        }
+
+        else {
+            db.openDB();
+        }
+        db1 = openOrCreateDatabase("place", Context.MODE_PRIVATE, null);
         loadActivity();
 
 
@@ -112,7 +125,6 @@ public class MainPage extends AppCompatActivity {
             Adapter adapter = new Adapter(context, PlaceArrayList);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            db1 = OpenOrCreateDataBase();
             ReadData(PlaceArrayList, db1);
         }
         else {
@@ -156,7 +168,7 @@ public class MainPage extends AppCompatActivity {
         });
     }
 
-    public SQLiteDatabase OpenOrCreateDataBase() {
+    public void OpenOrCreateDataBase() {
         Database db = new Database(this);
         try {
             db.getReadableDatabase();
@@ -165,10 +177,11 @@ public class MainPage extends AppCompatActivity {
 
             throw new Error("Database not created");
         }
-        db.openDB();
 
-        db1 = openOrCreateDatabase("place", Context.MODE_PRIVATE, null);
-        return db1;
+        SharedPreferences prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("firstStart", false);
+        editor.apply();
 
     }
 
