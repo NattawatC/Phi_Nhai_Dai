@@ -29,8 +29,8 @@ import java.util.Objects;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
     private final Context context;
     private final ArrayList<Place> place;
-    private  Database db;
-
+    private Database db;
+    private int status;
     public Adapter(Context context, ArrayList<Place> place) {
         this.context = context;
         this.place = place;
@@ -39,18 +39,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        db = Database.getInstance(context);
         View v = LayoutInflater.from(context).inflate(R.layout.travel_card,parent,false);
 
         return new ViewHolder(v);
     }
 
+
+
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        db = Database.getInstance(context);
         Place p = place.get(position);
-        readCursorData(p);
+        Checkstatus(p);
         holder.rating.setText(String.valueOf(p.getRating()));
         holder.name.setText(p.getName() + ", " + String.valueOf(p.getLocation()));
         Glide.with(context).load(String.valueOf(p.getImg_link())).into(holder.img);
@@ -66,8 +67,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         });
 
         holder.favbtn.setOnClickListener(v ->  {
-                if (Objects.equals(p.getFavStatus(), "0")) {
-                    Boolean Update = true;
+            if (status == 0) {
+//                if (p.getFavStatus().equals("0")) {
                     p.setFavStatus("1");
                     db.AddFav(String.valueOf(p.getId()));
                     Toast.makeText(context,
@@ -105,30 +106,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         }
     }
 
-//    private void createTableOnFirstStart() {
-//        favDB.insertEmpty();
-//
-//        SharedPreferences prefs = context.getSharedPreferences("prefs",Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.putBoolean("firstStart", false);
-//        editor.apply();
-//    }
 
-    private void readCursorData(Place p) {
+    private void Checkstatus(Place p) {
         SQLiteDatabase db1 = db.getReadableDatabase();
-        Cursor c = db1.rawQuery("SELECT fStatus FROM Places",null);
+        Cursor c = db1.rawQuery("SELECT fStatus FROM Places WHERE ID=" + p.getId() ,null);
         c.moveToFirst();
-            while (c.moveToNext()) {
-                @SuppressLint("Range") String item_fav_status = c.getString(0);
-                p.setFavStatus(item_fav_status);
+        status = c.getInt(0);
+        c.close();
+        db1.close();
+    }
 
-                //check fav status
-//            if (item_fav_status != null && item_fav_status.equals("1")) {
-//                viewHolder.favBtn.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
-//            } else if (item_fav_status != null && item_fav_status.equals("0")) {
-//                viewHolder.favBtn.setBackgroundResource(R.drawable.ic_favorite_shadow_24dp);
-//            }
-            }
-        }
 
 }
