@@ -66,8 +66,6 @@ public class MainPage extends AppCompatActivity {
 
     RecyclerView recyclerView;
     SQLiteDatabase db1;
-    Boolean UpdatefStatus;
-    String idUpdate;
 
     ArrayList<Filter> filter = new ArrayList<>();
 
@@ -294,21 +292,18 @@ public class MainPage extends AppCompatActivity {
             categoryTextViews.add(central_text);
             categoryTextViews.add(eastern_text);
             categoryTextViews.add(southern_text);
-//            categoryTextViews.add(beverages_text);
 
             // Loads Checkboxes to ArrayList
             categoryCheckBoxes.add(northern_checkbox);
             categoryCheckBoxes.add(central_checkbox);
             categoryCheckBoxes.add(eastern_checkbox);
             categoryCheckBoxes.add(southern_checkbox);
-//            categoryCheckBoxes.add(beverages_checkbox);
 
             // Category UI Elements Setup
             northern_text .setText(R.string.northern);
             central_text.setText(R.string.central);
             eastern_text.setText(R.string.eastern);
             southern_text.setText(R.string.southern);
-//            beverages_text.setText(R.string.beverages);
 
             Typeface poppins_bold = ResourcesCompat.getFont(this, R.font.poppins_bold);
 
