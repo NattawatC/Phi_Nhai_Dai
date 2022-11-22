@@ -36,10 +36,11 @@
         <ImageButton
             android:contentDescription="@string/fav_icon"
             android:id="@+id/cardFav"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/ic_baseline_favorite_24"
             android:scaleType="centerCrop"
+            android:background="@null"
             android:layout_below="@+id/cardTitle"
             android:layout_marginStart="300dp"/>
 

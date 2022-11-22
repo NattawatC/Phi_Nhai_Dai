@@ -72,7 +72,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
                     p.setFavStatus("1");
                     db.AddFav(String.valueOf(p.getId()));
                     Toast.makeText(context,
-                                    "Add to favourite",
+                                    "Add to favorite",
                                     Toast.LENGTH_LONG)
                             .show();
                 }
@@ -80,7 +80,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
                     p.setFavStatus("0");
                     db.removeFav(String.valueOf(p.getId()));
                     Toast.makeText(context,
-                                    "Remove from favourite",
+                                    "Remove from favorite",
                                     Toast.LENGTH_LONG)
                             .show();
                 }
