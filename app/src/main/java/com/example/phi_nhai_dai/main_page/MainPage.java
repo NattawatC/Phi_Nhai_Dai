@@ -38,7 +38,7 @@ import java.util.Objects;
 
 public class MainPage extends AppCompatActivity {
 
-    public static Boolean eventFilter = false;
+    public static Boolean eventFilter;
     @SuppressLint("StaticFieldLeak")
     public static Context context;
 
@@ -80,6 +80,7 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.new_discover_page);
         initializeInstances();
         initializeBottomNavigation();
+        eventFilter = false;
         context =  MainPage.this;
 
         SharedPreferences prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
@@ -147,6 +148,8 @@ public class MainPage extends AppCompatActivity {
             }
             else if (currentItem == R.id.nav_aboutus) {
                 Intent myIntent = new Intent(MainPage.this, MainActivity.class);
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(myIntent);
                 finish();
                 overridePendingTransition(0, 0);
@@ -154,6 +157,8 @@ public class MainPage extends AppCompatActivity {
             }
             else if (currentItem == R.id.nav_favourite) {
                 Intent myIntent = new Intent(MainPage.this, Favorite.class);
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(myIntent);
                 finish();
                 overridePendingTransition(0, 0);
@@ -361,18 +366,21 @@ public class MainPage extends AppCompatActivity {
         if (id == R.id.nav_aboutus){
             Intent myIntent = new Intent(MainPage.this, MainActivity.class);
             startActivity(myIntent);
+            finish();
             return true;
         }
 
         else if (id == R.id.nav_discover){
             Intent myIntent = new Intent(MainPage.this, MainPage.class);
             startActivity(myIntent);
+            finish();
             return true;
         }
 
         else if (id == R.id.nav_favourite){
             Intent myIntent = new Intent(MainPage.this, Favorite.class);
             startActivity(myIntent);
+            finish();
             return true;
         }
 

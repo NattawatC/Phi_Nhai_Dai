@@ -75,6 +75,8 @@ public class Favorite extends AppCompatActivity {
             recyclerview.setAdapter(adapter);
             recyclerview.setLayoutManager(new LinearLayoutManager(context));
         }
+        c.close();
+        db1.close();
     }
 
     public void OpenOrCreateDataBase() {

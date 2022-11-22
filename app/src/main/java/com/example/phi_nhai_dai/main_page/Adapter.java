@@ -3,8 +3,10 @@ package com.example.phi_nhai_dai.main_page;
 import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
@@ -51,7 +53,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Place p = place.get(position);
+        SharedPreferences prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
         Checkstatus(p);
+
         holder.rating.setText(String.valueOf(p.getRating()));
         holder.name.setText(p.getName() + ", " + String.valueOf(p.getLocation()));
         Glide.with(context).load(String.valueOf(p.getImg_link())).into(holder.img);
@@ -62,6 +66,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
             intent.putExtra("ID", String.valueOf(p.getId()));
             intent.putExtra("IMAGE", p.getImg_link());
             intent.putExtra("NAME", holder.name.getText().toString());
+            ((Activity) context).finish();
             context.startActivity(intent);
 
         });
@@ -75,6 +80,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
                                     "Add to favorite",
                                     Toast.LENGTH_LONG)
                             .show();
+                    status = 1;
                 }
                 else {
                     p.setFavStatus("0");
@@ -83,6 +89,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
                                     "Remove from favorite",
                                     Toast.LENGTH_LONG)
                             .show();
+                    status = 0;
                 }
         });
     }
@@ -114,6 +121,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         status = c.getInt(0);
         c.close();
         db1.close();
+
+        SharedPreferences prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("fS", false);
+        editor.apply();
     }
 
 
