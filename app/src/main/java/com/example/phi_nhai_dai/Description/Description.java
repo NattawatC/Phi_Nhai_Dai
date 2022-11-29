@@ -13,15 +13,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import com.example.phi_nhai_dai.R;
-import com.example.phi_nhai_dai.main_page.Database;
-import com.example.phi_nhai_dai.main_page.MainPage;
 import com.example.phi_nhai_dai.main_page.Place;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Objects;
-
 
 public class Description extends AppCompatActivity {
 
@@ -48,7 +42,7 @@ public class Description extends AppCompatActivity {
         String id = getIntent().getStringExtra("ID");
 
         Place p;
-        Cursor c = db1.rawQuery("SELECT * FROM Places JOIN Description ON Places.ID = Description.Places_ID\n"
+        @SuppressLint("Recycle") Cursor c = db1.rawQuery("SELECT * FROM Places JOIN Description ON Places.ID = Description.Places_ID\n"
                 + "WHERE Places.ID=" + id, null);
         c.moveToFirst();
         p = new Place(c.getInt(0), c.getString(1)

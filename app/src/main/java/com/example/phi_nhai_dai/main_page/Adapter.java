@@ -1,7 +1,5 @@
 package com.example.phi_nhai_dai.main_page;
 
-import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -24,9 +22,7 @@ import com.bumptech.glide.Glide;
 import com.example.phi_nhai_dai.Description.Description;
 import com.example.phi_nhai_dai.R;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
     private final Context context;
@@ -53,11 +49,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Place p = place.get(position);
-        SharedPreferences prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
         Checkstatus(p);
 
         holder.rating.setText(String.valueOf(p.getRating()));
-        holder.name.setText(p.getName() + ", " + String.valueOf(p.getLocation()));
+        holder.name.setText(p.getName() + ", " + p.getLocation());
         Glide.with(context).load(String.valueOf(p.getImg_link())).into(holder.img);
 
         holder.img.setOnClickListener(v -> {
@@ -73,7 +69,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
 
         holder.favbtn.setOnClickListener(v ->  {
             if (status == 0) {
-//                if (p.getFavStatus().equals("0")) {
                     p.setFavStatus("1");
                     db.AddFav(String.valueOf(p.getId()));
                     Toast.makeText(context,

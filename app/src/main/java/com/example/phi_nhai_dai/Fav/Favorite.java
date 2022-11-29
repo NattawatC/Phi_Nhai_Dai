@@ -63,6 +63,16 @@ public class Favorite extends AppCompatActivity {
             }
         });
 
+        loadActivity();
+
+    }
+
+    public void OpenOrCreateDataBase() {
+        Database db = Database.getInstance(context);
+        db1 = db.getReadableDatabase();
+    }
+
+    public void loadActivity() {
         ArrayList<Place> p = new ArrayList<>();
         Cursor c = db1.rawQuery("SELECT * FROM Places WHERE fStatus=1" , null);
 
@@ -77,11 +87,7 @@ public class Favorite extends AppCompatActivity {
         }
         c.close();
         db1.close();
-    }
-
-    public void OpenOrCreateDataBase() {
-        Database db = Database.getInstance(context);
-        db1 = db.getReadableDatabase();
+        c.close();
     }
 
 }

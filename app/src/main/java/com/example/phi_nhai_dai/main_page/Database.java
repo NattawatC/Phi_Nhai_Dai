@@ -1,14 +1,11 @@
 package com.example.phi_nhai_dai.main_page;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -19,6 +16,7 @@ import java.io.OutputStream;
 
 public class Database extends SQLiteOpenHelper {
 
+    @SuppressLint("StaticFieldLeak")
     private static Database mInstance;
     @SuppressLint("SdCardPath")
     private static final String DB_PATH = "/data/data/com.example.phi_nhai_dai/databases/";
@@ -88,12 +86,4 @@ public class Database extends SQLiteOpenHelper {
         String sql = "UPDATE Places SET fStatus=0 WHERE ID = " +id;
         db.execSQL(sql);
     }
-
-    public Cursor ReadData() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM Places" ;
-        return db.rawQuery(sql,null,null);
-    }
-
-
 }
