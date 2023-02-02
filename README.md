@@ -31,4 +31,4 @@ The application is developed using the Android Java SDK, Android Studio, and SQL
 ## 🎓 Group
 64011345 [Atip Kajitamkul](https://github.com/Audio431)\
 64011478 [Nattawat Chaokraisith](https://github.com/NattawatC)\
-64011 [Thitiwat Sornmanee](https://github.com/santabou)
+64011683 [Thitiwat Sornmanee](https://github.com/santabou)
