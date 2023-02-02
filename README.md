@@ -19,7 +19,7 @@ This section will include a brief history of the place, highlighting its key fea
 
 ![Readme3](https://user-images.githubusercontent.com/90686843/216275385-a77cacfc-4f65-47a9-96a7-6127ad8b8be8.png)
 
-### ❤️ Favorite Page
+### 🤍 Favorite Page
 The favorite page section enables the user to save the places that they are interested in visiting, by simply clicking on the heart button located on the card. 
 The ability to add or remove a card from the favorite page section gives the user complete control over their personal collection.
 
